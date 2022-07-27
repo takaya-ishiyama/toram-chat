@@ -1,0 +1,14 @@
+7/23
+[done]
+    i make chatapp's system of index
+    create account. <- there is not url.py
+    add account to setting
+    i need to link the account url
+[task]
+    i need to make account's models, form and view 
+    make chat room system
+    make my chat system
+    make my page system
+    make registering system
+    make logging in system
+    make logging out system
