@@ -17,9 +17,12 @@
             <div id="footer"></div>
         </div>
         <ul class="select-chat-box">
-            {%for message in msg %}
-                <p>{{message}}</p>
+            {%for message in msg%}
+                <p id='msg'>{{message.msg}}</p>
+                <p id='username'>{{message.username}}</p>
+
             {% endfor %}
+
     
         </ul>
 
@@ -28,6 +31,7 @@
         <form action={% url 'chatapp:chat_room' room.name %} method="POST">
             {% csrf_token %}
             {{  form.as_p }}
+            <input type="hidden" id='username' name="username" value={{ user.username }}>
             <input placeholder="メッセージを入力" type="text" name="msg" value=""/>
             <input type="submit" class="send" name="button" value="送信"> 
         </form>

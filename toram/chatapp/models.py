@@ -23,9 +23,9 @@ class Messages(models.Model):
         related_name='room_meesages',
         on_delete=models.CASCADE
     )
-    # name = models.CharField(max_length=50)
+    username = models.CharField(max_length=50)
     #image=models.ImageField(upload_to='img/')
-    # created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg
 

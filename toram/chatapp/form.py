@@ -11,6 +11,6 @@ class RoomCreateForm(forms.ModelForm):
 class ChatForm(forms.ModelForm):
     class Meta:
         model = Messages
-        fields = ('msg',)
+        fields = ('username','msg')
 
 
