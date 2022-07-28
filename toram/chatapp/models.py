@@ -7,20 +7,20 @@ import uuid
 class Room(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=50)
-    #image=models.ImageField(upload_to='img/')
-    # created_at = models.DateTimeField(default=timezone.now)
+    image=models.ImageField(upload_to='img/')
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name
 
 class Messages(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    msg = models.TextField(null=True, blank=True)
+    msg = models.TextField()
     room = models.ForeignKey(
         Room,
         blank=True,
         null=True,
-        related_name='room_meesages',
+        related_name='room_mesages',
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=50)

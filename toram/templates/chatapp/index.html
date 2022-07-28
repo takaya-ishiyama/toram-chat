@@ -7,13 +7,14 @@
 <main>
     <h2>ルームを新しく作成する<h2>
         <div class="create-room-box">
-            <form action="{% url 'chatapp:index' %}" method="POST">
+            <form action={% url 'chatapp:index'%} method="POST">
                 {% csrf_token %}
                 {{  form.as_p }}
                 <input placeholder="ルーム名を入力" type="text" name="name" value="">
                 <input type="submit" class="send" name="button" value="作成"> 
             </form>
         </div>
+        <p>{{text}}</p>
         
         <h2>ルーム一覧</h2>
         <ul class="select-room-box">

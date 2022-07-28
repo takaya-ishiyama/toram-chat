@@ -6,16 +6,7 @@
 <h1>{{room.name}}</h1>
 <main>
 
-    {% comment %} <div class="chat-room-body"> {% endcomment %}
-        {% comment %} {% for message in msg %} {% endcomment %}
-            {% comment %} <div class="chat-box"> {% endcomment %}
-                {% comment %} <div class="chat-body">
-                    {{msg.content}}
-                </div>
-            </div> {% endcomment %}
-        {% comment %} {% endfor %} {% endcomment %}
-            <div id="footer"></div>
-        </div>
+    <div>
         <ul class="select-chat-box">
             {%for message in msg%}
                 <p id='msg'>{{message.msg}}</p>
@@ -25,6 +16,7 @@
 
     
         </ul>
+    </div>
 
     {% if request.user.is_authenticated %}
     <div class="send-msg">
