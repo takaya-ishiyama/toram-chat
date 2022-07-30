@@ -18,12 +18,14 @@ from django.urls import reverse
 #     return render(request,'../templates/chatapp/base.html',context)
 
 def index(request):
-    form = RoomCreateForm(request.POST or None)
+    form = RoomCreateForm()
     name=request.POST.get('name')
-    
-    print(Room.objects.filter(name=name).exists())
+    if request.POST:
+        form=RoomCreateForm(request.POST or None, request.FILES)
+
     context = {
-        'room_list':Room.objects.all(), 
+        'list':Room.objects.all().order_by('-created_at') ,
+        'form':form
     }
     if request.method == 'POST' and form.is_valid():
         if Room.objects.filter(name=name).exists()==False:
@@ -49,23 +51,26 @@ def chat(request, room_name):
     form = ChatForm(request.POST or None)
     username=request.POST.get('username')
     message=request.POST.get('msg')
+    image=request.FILES.get('images')
+    photos=PhotosForm(request.POST)
+    print(image)
+
     room = Room.objects.filter(name=room_name)[0]
     messages = Messages.objects.filter(room__name=room_name).order_by('-created_at') 
+
     template = '../templates/chatapp/chat_room.html'
     loadtemplate=loader.get_template('chatapp/chat_room.html')
 
     if request.method == 'POST'and form.is_valid():
-        result=Messages.objects.create(username=username, msg=message, room=room)
-        print(result)
-        result.save()
-        messages = Messages.objects.filter(room__name=room_name).order_by('-created_at') 
+        result=Messages.objects.create(username=username, msg=message, room=room,)
+        messages = Messages.objects.filter(room__name=room_name).order_by('-created_at')
         context = {
         'msg':messages,
         'room': room,
         }
         return HttpResponse(loadtemplate.render(context, request))
     else:
-        form = ChatForm()
+        pass
 
     context = {
         'msg':messages,

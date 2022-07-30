@@ -11,9 +11,11 @@
             {%for message in msg%}
                 <p id='msg'>{{message.msg}}</p>
                 <p id='username'>{{message.username}}</p>
-
-            {% endfor %}
-
+                
+                {% endfor %}
+                {% for i in image %}
+                <p id='image'>{{i.image}}</p>
+                {%endfor%}
     
         </ul>
     </div>
@@ -24,6 +26,7 @@
             {% csrf_token %}
             {{  form.as_p }}
             <input type="hidden" id='username' name="username" value={{ user.username }}>
+            <input type="file" multiple="" name="images" id="multiple-files">
             <input placeholder="メッセージを入力" type="text" name="msg" value=""/>
             <input type="submit" class="send" name="button" value="送信"> 
         </form>

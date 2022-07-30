@@ -129,7 +129,12 @@ STATICFILES_DIRS = [
 LOGIN_URL = 'account:login'            # ログイン時
 LOGIN_REDIRECT_URL = 'chatapp:index'   # ログイン後
 LOGOUT_REDIRECT_URL = 'chatapp:index'  # ログアウト後
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+else:
+    MEDIA_ROOT = f'/var/www/{BASE_DIR.name}/media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

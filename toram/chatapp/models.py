@@ -7,7 +7,7 @@ import uuid
 class Room(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=50)
-    image=models.ImageField(upload_to='img/')
+    image=models.ImageField(upload_to='media/')
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Messages(models.Model):
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=50)
-    #image=models.ImageField(upload_to='img/')
+    image=models.ImageField(upload_to='mediainchat/', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg

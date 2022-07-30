@@ -16,9 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from chatapp import views as cahtapp_views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', include('chatapp.urls')),
     path(r'account/', include('account.url')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
