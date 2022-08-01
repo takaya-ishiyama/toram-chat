@@ -7,7 +7,8 @@ import uuid
 class Room(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=50)
-    image=models.ImageField(upload_to='media/')
+    image=models.ImageField(upload_to='media/',null=True, blank=True)
+    detail=models.TextField(max_length=400, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -18,13 +19,11 @@ class Messages(models.Model):
     msg = models.TextField()
     room = models.ForeignKey(
         Room,
-        blank=True,
-        null=True,
         related_name='room_mesages',
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=50)
-    image=models.ImageField(upload_to='mediainchat/', null=True, blank=True)
+    image=models.ImageField(upload_to='media/', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg

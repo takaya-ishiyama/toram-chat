@@ -5,25 +5,20 @@
 {% comment %} <div class="container"> {% endcomment %}
 <h1>HOME</h1>
 <main>
-    <h2>ルームを新しく作成する<h2>
-        <div class="create-room-box">
-            <form action={% url 'chatapp:index'%} method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}  
-                {% comment %} <input placeholder="ルーム名を入力" type="text" name="name" value=""> <br>
-                <input type="file" name="image" > <br>  {% endcomment %}
-                <input type="submit" class="send" name="button" value="作成"> 
-            </form>
-        </div>
-        <p>{{text}}</p>
+    <a href="{% url 'chatapp:newroom'%}">ルーム作成</a>
+
 
         <br>
-        <h2>新しいルーム</h2>
+        <h2>新作ルーム</h2>
         <ul class="select-room-box">
             {%for lis in list%}
-            {% if forloop.counter <= 5 %}
+            {% if forloop.counter <= 6 %}
             <div>
+                {%if lis.image == ''%}
+                <p><a href="/chat/{{ lis.name }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
+                {%else%}
                 <p><a href="/chat/{{ lis.name }}"><img src="media/{{lis.image}}"width="150" height="150" border="0" ></a></p>
+                {%endif%}
                 <p><a href="/chat/{{ lis.name }}">{{lis.name}}</a></p>
             </div>     
             {%endif%}   

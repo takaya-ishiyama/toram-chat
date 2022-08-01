@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}my_chat_room{% endblock %}
+{% block content %}
+<h1>ルーム詳細</h1>
+<main>
+    <p>{{room.name}}</p>
+    <p>{{room.image}}</p>
+    <p>{{room.detail}}</p>
+
+
+    <div class="change-room-fields-box">
+        <form action={% url 'chatapp:detail' room.name%} method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="csrfmiddlewaretoken" value="UTayzsPWZ55FP0LmYMixHuLIFp0mKjVuq3Jep3QYhcBstdt7PdWaF90mU99kJtBO">
+            <p>
+                <label for="id_name">部屋の名前:</label>
+                <input value="{{room.name}}" type="text" name="name" maxlength="50" required id="id_name">      
+            </p>
+            
+            <p>
+                <label for="id_image">アイコン画像:</label>
+                <input type="file" name="image" accept="image/*" id="id_image">
+            </p>
+
+            <p>
+                <label for="id_detail">ルーム詳細:</label>
+                <textarea name="detail" cols="40" rows="10" maxlength="400" id="id_detail">{{room.detail}}</textarea>
+            </p>    
+            <p><input type="submit" class="send" name="button" value="送信"> </p>    
+        </form>
+    </div>
+
+</main>
+</div>
+{% endblock %}
