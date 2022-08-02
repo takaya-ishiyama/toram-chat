@@ -4,7 +4,9 @@
 {% block content %}
 <h1>まとめ</h1>
 <main>
-
+    <a href="/chat/{{ room.id }}">チャット</a>
+    <a href="/chat/{{room.id}}/summary">まとめ</a>
+    <a href="/chat/{{room.id}}/detail">ルーム情報</a>
 </main>
 </div>
 {% endblock %}

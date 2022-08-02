@@ -4,9 +4,9 @@
 {% block content %}
 {% comment %} <div class="container"> {% endcomment %}
 <h1>{{room.name}}</h1>
-<a href="/chat/{{ room.name }}">チャット</a>
-<a href="/chat/{{room.name}}/summary">まとめ</a>
-<a href="/chat/{{room.name}}/detail">ルーム情報</a>
+<a href="/chat/{{ room.id }}">チャット</a>
+<a href="/chat/{{room.id}}/summary">まとめ</a>
+<a href="/chat/{{room.id}}/detail">ルーム情報</a>
 <main>
 
     <div>
@@ -25,15 +25,13 @@
 
     {% if request.user.is_authenticated %}
     <div class="send-msg">
-        <form action={% url 'chatapp:chat_room' room.name %} method="POST">
+        <form action={% url 'chatapp:chat_room' room.id %} method="POST">
             {% csrf_token %}
             <p><input type="hidden" id='username' name="username" value={{ user.username }}></p>
             <p><input type="file" name="images" accept="image/*" id="id_images"></p>
             <p><input placeholder="メッセージを入力" type="text" name="msg" value=""/></p>
             <p><input type="submit" class="send" name="button" value="送信"> </p>
-            {% comment %} <input type="file" multiple="" name="images" accept="image/*" id="multiple-files"> {% endcomment %}
-            
-            
+            {% comment %} <input type="file" multiple="" name="images" accept="image/*" id="multiple-files"> {% endcomment %}   
             
         </form>
     </div>

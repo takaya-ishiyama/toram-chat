@@ -1,28 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}my_chat_room{% endblock %}
+{% block title %}chat_room_detail{% endblock %}
 {% block content %}
 <h1>ルーム詳細</h1>
 <main>
-    <p>{{room.name}}</p>
-    <p>{{room.image}}</p>
-    <p>{{room.detail}}</p>
-
-
+    <a href="/chat/{{ room.id }}">チャット</a>
+    <a href="/chat/{{room.id}}/summary">まとめ</a>
+    <a href="/chat/{{room.id}}/detail">ルーム情報</a>
+    
+    
     <div class="change-room-fields-box">
-        <form action={% url 'chatapp:detail' room.name%} method="POST" enctype="multipart/form-data">
+        <form action={% url 'chatapp:detail' room.id%} method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="hidden" name="csrfmiddlewaretoken" value="UTayzsPWZ55FP0LmYMixHuLIFp0mKjVuq3Jep3QYhcBstdt7PdWaF90mU99kJtBO">
             <p>
                 <label for="id_name">部屋の名前:</label>
                 <input value="{{room.name}}" type="text" name="name" maxlength="50" required id="id_name">      
             </p>
-            
+            <p>{{text}}</p>
             <p>
                 <label for="id_image">アイコン画像:</label>
                 <input type="file" name="image" accept="image/*" id="id_image">
             </p>
-
             <p>
                 <label for="id_detail">ルーム詳細:</label>
                 <textarea name="detail" cols="40" rows="10" maxlength="400" id="id_detail">{{room.detail}}</textarea>
@@ -30,6 +28,14 @@
             <p><input type="submit" class="send" name="button" value="送信"> </p>    
         </form>
     </div>
+
+    <form action={% url 'chatapp:detail' room.id%} method="POST">
+        <div class="clean-room">
+            <button class="send" type="submit" name="delete">
+            ルームを削除
+            </button>
+        </div>
+    </form>
 
 </main>
 </div>

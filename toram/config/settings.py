@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'chatapp.apps.ChatappConfig',
     'chatapp',
-    'account',
+    'account.apps.AccountConfig',
 ]
+AUTH_USER_MODEL = 'account.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

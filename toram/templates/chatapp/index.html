@@ -15,11 +15,11 @@
             {% if forloop.counter <= 6 %}
             <div>
                 {%if lis.image == ''%}
-                <p><a href="/chat/{{ lis.name }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
+                <p><a href="/chat/{{ lis.id }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
                 {%else%}
-                <p><a href="/chat/{{ lis.name }}"><img src="media/{{lis.image}}"width="150" height="150" border="0" ></a></p>
+                <p><a href="/chat/{{ lis.id }}"><img src="media/{{lis.image}}"width="150" height="150" border="0" ></a></p>
                 {%endif%}
-                <p><a href="/chat/{{ lis.name }}">{{lis.name}}</a></p>
+                <p><a href="/chat/{{ lis.id }}">{{lis.name}}</a></p>
             </div>     
             {%endif%}   
             {%endfor%}

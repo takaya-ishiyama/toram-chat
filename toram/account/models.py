@@ -1,7 +1,6 @@
 from django.db import models
+import uuid
+from django.contrib.auth.models import PermissionsMixin, AbstractUser
 
-# Create your models here.
-# class Users(models.Model):
-#     name=models.CharField(max_length=20)
-#     password=models.CharField(max_length=20)
-#     detail=models.CharField(max_length=200)
+class User(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

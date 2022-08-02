@@ -11,10 +11,11 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LogoutView
+from .form import UserCreateForm
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = UserCreateForm(request.POST)
         if form.is_valid():
             new_user = form.save()
             input_username = form.cleaned_data["username"]
