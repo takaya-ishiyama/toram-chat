@@ -5,8 +5,11 @@
 {% comment %} <div class="container"> {% endcomment %}
 <h1>HOME</h1>
 <main>
-    <a href="{% url 'chatapp:newroom'%}">ルーム作成</a>
-
+    {%if user.is_authenticated%}
+    <p><a href="{% url 'chatapp:newroom'%}">ルーム作成</a></p>
+    {%else%}
+    <p>ログインすると部屋が作成できます</p>
+    {%endif%}
 
         <br>
         <h2>新作ルーム</h2>

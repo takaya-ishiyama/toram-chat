@@ -42,10 +42,10 @@
                     <a class="nav-link" href="{% url 'chatapp:index' %}">ホーム</a>
                   </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'chatapp:my_chat_room' %}">ルーム</a>
+                  <a class="nav-link" href="{% url 'chatapp:my_chat_room' %}">マイルーム</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'chatapp:setting' %}">マイページ</a>
+                    <a class="nav-link" href="{% url 'chatapp:setting' %}">設定</a>
                   </li>
                   {% if request.user.is_authenticated %}
                   <a href="{% url 'account:logout' %}">ログアウト</a>

@@ -1,7 +1,9 @@
+from doctest import master
 from django.db import models
 from django.utils import timezone
 import uuid
 from account.models import User
+
 
 # Create your models here.
 
@@ -10,6 +12,13 @@ class Room(models.Model):
     name = models.CharField(max_length=50)
     image=models.ImageField(upload_to='media/',null=True, blank=True)
     detail=models.TextField(max_length=400, null=True, blank=True)
+    master=models.ForeignKey(
+        User,
+        related_name='room_master',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -17,7 +26,7 @@ class Room(models.Model):
 
 class Messages(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    msg = models.TextField()
+    msg = models.TextField(null=True, blank=True)
     room = models.ForeignKey(
         Room,
         related_name='room_mesages',
@@ -29,15 +38,20 @@ class Messages(models.Model):
     def __str__(self):
         return self.msg
 
-# class InMessage(models.Model):
-#     # id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-#     room = models.ForeignKey(
-#         Messages,
-#         blank=True,
-#         null=True,
-#         related_name='in_meesages',
-#         on_delete=models.CASCADE
-#     )
-#     # name = models.CharField(max_length=50)
-#     msg = models.TextField()
-#     # created_at = models.DateTimeField(default=timezone.now)
+
+
+class FollowRoom(models.Model):
+    user=models.ForeignKey(
+        User,
+        related_name='user_follow_room',
+        on_delete=models.CASCADE
+    )
+    room=models.ForeignKey(
+        Room,
+        related_name='followed_room_by_user',
+        on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return "{} : {}".format(self.room.name, self.user.username)

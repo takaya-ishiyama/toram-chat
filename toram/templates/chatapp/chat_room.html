@@ -4,10 +4,34 @@
 {% block content %}
 {% comment %} <div class="container"> {% endcomment %}
 <h1>{{room.name}}</h1>
-<a href="/chat/{{ room.id }}">チャット</a>
-<a href="/chat/{{room.id}}/summary">まとめ</a>
-<a href="/chat/{{room.id}}/detail">ルーム情報</a>
+<div>
+    <a href="/chat/{{ room.id }}">チャット</a>
+    <a href="/chat/{{room.id}}/summary">まとめ</a>
+    <a href="/chat/{{room.id}}/detail">ルーム情報</a>
+</div>
+<div class="follow">
+    <form action={% url 'chatapp:chat_room' room.id %} method="POST">
+        {% csrf_token %}
+        {%if follow%}
+            <input type="submit" name="unfollow" value="マイルームから削除">
+        {%else%}
+            <input type="submit" name="follow" value="マイルームに追加">
+        {%endif%}
+    </form>
+    
+</div>
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<br>
+
+
 <main>
+
 
     <div>
         <ul class="select-chat-box">
@@ -27,12 +51,8 @@
     <div class="send-msg">
         <form action={% url 'chatapp:chat_room' room.id %} method="POST">
             {% csrf_token %}
-            <p><input type="hidden" id='username' name="username" value={{ user.username }}></p>
-            <p><input type="file" name="images" accept="image/*" id="id_images"></p>
-            <p><input placeholder="メッセージを入力" type="text" name="msg" value=""/></p>
-            <p><input type="submit" class="send" name="button" value="送信"> </p>
-            {% comment %} <input type="file" multiple="" name="images" accept="image/*" id="multiple-files"> {% endcomment %}   
-            
+            {{messageform.as_p}}
+            <p><input type="submit" class="send" name="sendchat" value="送信"> </p>            
         </form>
     </div>
     {% endif %}

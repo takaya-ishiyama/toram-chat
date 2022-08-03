@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Messages, Room
+from .models import *
 
 # Register your models here.
 
@@ -10,3 +10,7 @@ class AdminRoom(admin.ModelAdmin):
 @admin.register(Messages)
 class AdminMessage(admin.ModelAdmin):
     list_display = ('username', 'created_at')
+
+@admin.register(FollowRoom)
+class AdminMessage(admin.ModelAdmin):
+    list_display = ('user', 'created_at')

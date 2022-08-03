@@ -7,7 +7,12 @@
     <a href="/chat/{{ room.id }}">チャット</a>
     <a href="/chat/{{room.id}}/summary">まとめ</a>
     <a href="/chat/{{room.id}}/detail">ルーム情報</a>
-    
+
+    <div class="display">
+        <p>部屋の名前：{{field.name}}</p>
+        <p>ルームマスター：{{field.master}}</p>
+        <p>詳細：{{field.detail}}</p>
+    </div>
     
     <div class="change-room-fields-box">
         <form action={% url 'chatapp:detail' room.id%} method="POST" enctype="multipart/form-data">

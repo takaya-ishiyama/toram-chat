@@ -6,14 +6,11 @@ from .models import *
 class RoomCreateForm(forms.ModelForm):
     class Meta:
         model = Room
-        fields = ('name','image')
+        fields = ('name','image',)
         labels={
             'name':'部屋の名前',
-            'image':'アイコン画像'
+            'image':'アイコン画像',
         }
-
-
-    
 
 class ChangeRoomFieldsFrom(forms.ModelForm):
     class Meta:
@@ -45,9 +42,17 @@ class ChangeRoomFieldsFrom(forms.ModelForm):
 class ChatForm(forms.ModelForm):
     class Meta:
         model = Messages
-        fields = ('username','msg',)
+        fields = ('msg',)
+        labels={
+            'msg':'',
+        }
 
 
 class PhotosForm(forms.Form):
     photos_field = forms.ImageField(
             widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+
+class FollowRoomForm(forms.Form):
+    class Meta:
+        fields=()
