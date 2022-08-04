@@ -19,9 +19,10 @@ def register(request):
         if form.is_valid():
             new_user = form.save()
             input_username = form.cleaned_data["username"]
+            input_icon = request.FILES.get("icon")
             input_password = form.cleaned_data["password1"]
             # ユーザーを認証する
-            new_user = authenticate(username=input_username, password=input_password) 
+            new_user = authenticate(username=input_username, password=input_password, icon=input_icon) 
             if new_user is not None:
                 # ユーザーをログイン状態にする
                 login(request, new_user)

@@ -1,6 +1,7 @@
 from email.mime import image
 import re
 from tabnanny import check
+from unittest import result
 from venv import create
 from attr import Factory
 from django.shortcuts import render, redirect, get_list_or_404
@@ -17,6 +18,7 @@ from django.urls import path, include
 from account.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
+from django.views.decorators.http import require_POST
 
 
 # Create your views here.
@@ -110,9 +112,9 @@ def chat(request, id):
 
 
 def detail(request,id):
+    all_user_display=True
     room_name=Room.objects.get(id=id)
     form=ChangeRoomFieldsFrom()
-    display={}
     room = Room.objects.filter(name=room_name)[0]
     field=Room.objects.get(name=room_name)
     roomid=field.id
@@ -120,11 +122,12 @@ def detail(request,id):
     context={}
     text=""
     template = loader.get_template('chatapp/detail.html')
+    judge=str(request.user.username)==str(field.master)
     if request.POST:
         form=ChangeRoomFieldsFrom(request.POST, request.FILES)
 
     if request.method == 'POST':
-        if form.is_valid():
+        if "change" in request.POST and form.is_valid():
             if Room.objects.filter(name=name).exists()==False or field.id==Room.objects.get(name=name).id:
                 field.name=form.cleaned_data['name']
                 if request.POST.get('image')!="":
@@ -137,11 +140,26 @@ def detail(request,id):
                 text='同名の部屋があります。別の名前で作成してください'
                 room.image=request.FILES.get('image')#機能していない
                 room.detail=request.POST.get('detail')
-            
+        if "edit" in request.POST:
+            edit=True
+            all_user_display=False
+            context = {
+            'room': room,
+            'text' : text,
+            'edit': edit,
+            'all_user_display':all_user_display
+            }
+            return HttpResponse(template.render(context, request))
+        if "delete" in request.POST:
+            deleteroom(request, name=room_name.name)
+            return redirect('chatapp:index')
+
     context = {
         'room': room,
         'text' : text,
-        'field': field
+        'field': field,
+        'judge': judge,
+        'all_user_display':all_user_display
     }
     return HttpResponse(template.render(context, request))
 
@@ -185,3 +203,8 @@ def unfollow_view(request, *args, **kwargs):
         return HttpResponseRedirect(reverse_lazy('chatapp:index'))
 
     return HttpResponseRedirect(reverse_lazy('chatapp:chat_room', kwargs={'id': room.id}))
+
+@require_POST
+def deleteroom(request, *args, **kwargs):
+    room=Room.objects.get(name=kwargs['name'])
+    room.delete()

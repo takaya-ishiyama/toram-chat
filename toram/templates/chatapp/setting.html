@@ -4,10 +4,13 @@
 {% block content %}
 <h1>設定</h1>
 <main>
-{% comment %} ユーザー情報表示 {% endcomment %}
-{% comment %} ユーザー情報設定 {% endcomment %}
-{% comment %} 問い合わせフォーム {% endcomment %}
-{% comment %}  {% endcomment %}
+<h2>ユーザー情報表示</h2>
+<p>ユーザー名：{{user.username}}</p>
+<p>ユーザー名：{{user.icon}}</p>
+<br>
+<h2>問い合わせフォーム</h2>
+<p><a href="#">toram.lobi.chat@gmail.com</a></p>
+<p><a href="https://twitter.com/LobiToram">Twitter</a></p>
 </main>
 </div>
 {% endblock %}
