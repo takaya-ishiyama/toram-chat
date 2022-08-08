@@ -4,9 +4,29 @@
 {% block content %}
 <h1>まとめ</h1>
 <main>
-    <a href="/chat/{{ room.id }}">チャット</a>
-    <a href="/chat/{{room.id}}/summary">まとめ</a>
-    <a href="/chat/{{room.id}}/detail">ルーム情報</a>
+    <div class="room_functions">
+        <a href="/chat/{{ room.id }}">チャット</a>
+        <a href="/chat/{{room.id}}/2/summary">まとめ</a>
+        <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
+    </div>
+    <br>
+    <div class="summary">
+        {%for lis in summary%}
+        <div class="summary-message">
+            <p>{{lis.primarymessage.msg}}</p>
+            {%if lis.primarymessage.images%}
+                <p><img src="/media/{{lis.primarymessage.images}}" width="150" height="150"></p>
+            {%endif%}
+                <p>{{lis.primarymessage.username}}</p>
+                <p>{{lis.secondarymessage.msg}}</p>
+                {%if lis.secondarymessage.images%}
+                    <p><img src="/media/{{lis.secondarymessage.images}}" width="150" height="150"></p>
+                {%endif%}
+                <p>{{lis.secondarymessage.username}}</p>
+            </div>
+            <br>
+        {%endfor%}
+    </div>
 </main>
 </div>
 {% endblock %}

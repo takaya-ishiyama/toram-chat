@@ -42,10 +42,12 @@ class ChangeRoomFieldsFrom(forms.ModelForm):
 class ChatForm(forms.ModelForm):
     class Meta:
         model = Messages
-        fields = ('msg',)
+        fields = ('msg','images')
         labels={
             'msg':'',
+            'images':'',
         }
+
 
 
 class PhotosForm(forms.Form):

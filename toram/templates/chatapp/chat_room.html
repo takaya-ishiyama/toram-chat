@@ -5,8 +5,8 @@
 <h1>{{room.name}}</h1>
 <div>
     <a href="/chat/{{ room.id }}">チャット</a>
-    <a href="/chat/{{room.id}}/summary">まとめ</a>
-    <a href="/chat/{{room.id}}/detail">ルーム情報</a>
+    <a href="/chat/{{room.id}}/2/summary">まとめ</a>
+    <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
 </div>
 {%if user.is_authenticated%}
 <div class="follow">
@@ -26,13 +26,24 @@
     <div>
         <ul class="select-chat-box">
             {%for message in msg%}
-                <p id='msg'>{{message.msg}}</p>
-                <p id='username'>{{message.username}}</p>
-                
+                <div class="message">
+                    <a href="/chat/{{room.id}}/{{message.id}}">
+                        <p id='msg'>{{message.msg}}</p>
+                    </a>
+                    <p id='username'>{{message.username}}</p>
+                    {%if message.images != ""%}
+                        <p id="image"><img src="/media/{{message.images}}" with="150" height="150"></p>
+                    {%endif%}
+                    {% comment %} <div class="summary">
+                        <form action={% url 'chatapp:chat_room' room.id %} method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="objectid" value={{message.id}}>
+                            <input type="submit" name="summary" value="まとめに登録">
+                        </form>
+                    </div> {% endcomment %}
+                                    </div>
             {% endfor %}
-            {% for i in image %}
-                <p id='image'>{{i.image}}</p>
-            {%endfor%}
+
         </ul>
     </div>
         
@@ -41,7 +52,7 @@
 
     {% if request.user.is_authenticated %}
     <div class="send-msg">
-        <form action={% url 'chatapp:chat_room' room.id %} method="POST">
+        <form action={% url 'chatapp:chat_room' room.id %} method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{messageform.as_p}}
             <p><input type="submit" class="send" name="sendchat" value="送信"> </p>            

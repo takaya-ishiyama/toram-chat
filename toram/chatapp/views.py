@@ -94,15 +94,14 @@ def setting(request):
     }
     return render(request, '../templates/chatapp/setting.html',context)
 
-
+# チャットview
 def chat(request, id):
     room_name=Room.objects.get(id=id)
     if request.user.is_authenticated:
         username=User.objects.get(username=request.user.username)
     else:
         username=User.objects.none()
-    messageform = ChatForm(request.POST or None)
-    imgform=PhotosForm(request.FILES)
+    messageform = ChatForm(request.POST or None, request.FILES)
     message=request.POST.get('msg')
     images=request.FILES.get('images')
     room = Room.objects.filter(name=room_name)[0]
@@ -111,14 +110,20 @@ def chat(request, id):
     loadtemplate=loader.get_template('chatapp/chat_room.html')
         
     if request.method == 'POST':
+        #チャットバリテーションと登録
         if messageform.is_valid() and message!=None and "sendchat" in request.POST and message!="":
-            result=Messages.objects.create(username=username, msg=message, room=room,image=images)
+            result=Messages.objects.create(username=username, msg=message, room=room,images=images)
             messages = Messages.objects.filter(room__name=room_name).order_by('-created_at')
             messageform=ChatForm()
+        #マイルーム追加と解除
         elif "follow" in request.POST:
             follow_view(request,name=room.name)
         elif "unfollow" in request.POST:
             unfollow_view(request,name=room.name)
+
+        # elif "summary" in request.POST:
+        #     messageobject=Messages.objects.get(id=request.POST.get('objectid'))
+        #     register_summary(request, room, messageobject)
 
     if request.user.is_authenticated:
         follow=FollowRoom.objects.filter(user=username,room=room).exists()
@@ -132,6 +137,42 @@ def chat(request, id):
     }
     return render(request,template,context)
 
+# チャットinチャット
+def inchat(request, id, messageid):
+    room=Room.objects.get(id=id)
+    primarymessage=Messages.objects.get(id=messageid)
+    template = loader.get_template('chatapp/in_chat.html')
+    if request.user.is_authenticated:
+        username=User.objects.get(username=request.user.username)
+    else:
+        username=User.objects.none()
+    messageform = ChatForm(request.POST or None, request.FILES)
+    message=request.POST.get('msg')
+    images=request.FILES.get('images')
+    messages = InMessages.objects.filter(room=primarymessage).order_by('-created_at') 
+   
+    if request.method == 'POST':
+        if messageform.is_valid() and message!=None and "sendchat" in request.POST and message!="":
+            result=InMessages.objects.create(username=username, msg=message, room=primarymessage,images=images)
+            messages = InMessages.objects.filter(room=primarymessage).order_by('-created_at')
+            messageform=ChatForm()
+
+        elif "psummary" in request.POST:
+            messageobject=Messages.objects.get(id=request.POST.get('objectid'))
+            register_summary(request, room, messageobject)
+
+        elif "ssummary" in request.POST:
+            messageobject=InMessages.objects.get(id=request.POST.get('objectid'))
+            register_summary(request, room, messageobject)
+
+
+    context = {
+        'room':room,
+        'primarymessage':primarymessage,
+        'msg':messages,
+        'messageform':messageform,
+    }
+    return HttpResponse(template.render(context,request))
 
 def detail(request,id):
     all_user_display=True
@@ -186,14 +227,6 @@ def detail(request,id):
     return HttpResponse(template.render(context, request))
 
 
-def summary(request,id):
-    room_name=Room.objects.get(id=id)
-    room = Room.objects.filter(name=room_name)[0]
-    template = loader.get_template('chatapp/summary.html')
-    context = {
-        'room': room,
-    }
-    return HttpResponse(template.render(context, request))
 
 
 
@@ -232,3 +265,30 @@ def deleteroom(request, *args, **kwargs):
     
     room.delete()
 
+
+def summary(request,id):
+    room=Room.objects.get(id=id)
+    summary=Summary.objects.filter(room=room)
+    template = loader.get_template('chatapp/summary.html')
+    context = {
+        'room': room,
+        'summary':summary,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def register_summary(request, room, messageobject):
+    try:
+        if Messages.objects.filter(id=messageobject.id):
+            pmsg=messageobject
+            _, created = Summary.objects.get_or_create(primarymessage=pmsg,room=room)
+        elif InMessages.objects.filter(id=messageobject.id):
+            smsg=messageobject
+            _, created = Summary.objects.get_or_create(secondarymessage=smsg,room=room)
+
+    except Room.DoesNotExist:
+        messages.warning(request, 'そのメッセージは存在しません')
+    if (created):
+        messages.success(request, 'まとめに登録しました')
+    else:
+        messages.warning(request, 'まとめに登録できませんでした')
