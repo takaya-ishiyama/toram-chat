@@ -47,17 +47,36 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'chatapp:setting' %}">設定</a>
                   </li>
-                  {% if request.user.is_authenticated %}
-                  <a href="{% url 'account:logout' %}">ログアウト</a>
+                {% if request.user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:logout' %}">ログアウト</a>
+                  </li>
                   {% else %}
-                  <a href="{% url 'account:login' %}">ログイン</a>
-                  <a href="{% url 'account:register' %}">ユーザー登録</a>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:login' %}">ログイン</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link"  href="{% url 'account:register' %}">ユーザー登録</a>
+                  </li>
                   {% endif %}
-                  <a href="{% url 'chatapp:setting' %}">{{ user.username }}</a>
-              </ul>
-            </div>
+                  {% comment %} <li class="nav-item">
+                    <a href="{% url 'chatapp:setting' %}">{{ user.username }}</a>
+                  </li> {% endcomment %}
+                  {% if user.is_authenticated%}
+                  {% if user.icon != ""%}
+                  <li class="nav-item">
+                    <a href="{% url 'chatapp:setting' %}"><img src="/media/{{user.icon}}" width="50" height="50" border=""></a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a href="{% url 'chatapp:setting' %}"><img src={% static 'img/no_image.png'%}  width="50" height="50" border=""></a>
+                  </li>
+                  {% endif %}
+                  {% endif %}
+                </ul>
+              </div>
           </nav>
-          
+
     </heder>
     <div class="content">
         {% block content %}{% endblock %}

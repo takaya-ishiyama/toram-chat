@@ -12,7 +12,7 @@ class UserCreateForm(forms.ModelForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username",)
+        fields = ("username","icon")
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -23,7 +23,6 @@ class UserCreateForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        # user.icon = self.cleaned_data['icon']
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -34,7 +33,21 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'password',)
+        fields = ('username', 'password','icon')
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
 
     def clean_password(self):
         return self.initial["password"]
+ 
+    def clean_name(self):
+        username = self.cleaned_data['username']
+        return username
+ 
+    def clean_icon(self):
+        icon = self.cleaned_data['icon']
+        return icon
+    
+

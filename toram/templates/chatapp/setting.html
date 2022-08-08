@@ -4,9 +4,28 @@
 {% block content %}
 <h1>設定</h1>
 <main>
-<h2>ユーザー情報表示</h2>
-<p>ユーザー名：{{user.username}}</p>
-<p>ユーザー名：{{user.icon}}</p>
+    <div class="profile">
+        <h2>ユーザー情報表示</h2>
+        <p>ユーザー名：{{user.username}}</p>
+        {% if user.icon != ""%}
+            <li class="nav-item">
+                <p><label>アイコン</label></p>
+                <a href="{% url 'chatapp:setting' %}"><img src="media/{{user.icon}}" width="150" height="150" border=""></a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <p><label>アイコン</label></p>
+                <a href="{% url 'chatapp:setting' %}"><img src="static/img/no_image.png" width="150" height="150" border="5"></a>
+            </li>
+        {% endif %}
+        <br>
+    </div>
+
+<form action={% url 'chatapp:setting'%} method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <p><input type="submit" class="send" name="sendchat" value="送信"> </p>            
+</form>
 <br>
 <h2>問い合わせフォーム</h2>
 <p><a href="#">toram.lobi.chat@gmail.com</a></p>

@@ -1,3 +1,4 @@
+from ast import keyword
 from email.mime import image
 import re
 from tabnanny import check
@@ -7,25 +8,43 @@ from attr import Factory
 from django.shortcuts import render, redirect, get_list_or_404
 from hawkey import Query
 from pymysql import NULL
-import chatapp
+from account.views import change
+import chatapp, account
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from chatapp.form import *
 from account.form import UserChangeForm
 from .models import *
+from account.views import *
 from django.template import loader
 from django.urls import path, include
 from account.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_POST
+from django.db.models import Q
 
 
 # Create your views here.
 
 def index(request):
+    results=Room.objects.none()
+    text=""
+    if "search" in request.POST:
+        query=request.POST.get('search-room')
+        query=query.split()
+        for word in query:
+            print(word)
+            results = results.union(Room.objects.filter(Q(name__icontains=word)|Q(detail__icontains=word)).all())        
+        if results.exists()==False:
+            print('ok')
+            text="見つかりません"
+        else:
+            pass
     context = {
     'list':Room.objects.all().order_by('-created_at') ,
+    'results':results,
+    'text':text
     }
     return render(request, '../templates/chatapp/index.html',context)
 
@@ -56,7 +75,7 @@ def newroom(request):
         form = RoomCreateForm()
     return render(request, '../templates/chatapp/newroom.html',context)
 
-
+@login_required
 def my_chat_room(request):
     username=User.objects.get(username=request.user.username)
     rooms=FollowRoom.objects.filter(user=username).order_by('-created_at')
@@ -69,19 +88,19 @@ def my_chat_room(request):
 def setting(request):
     form=UserChangeForm()
     if request.POST:
-        if form.is_valid():
-            form=UserChangeForm(request.POST)
-            form.save()
-
+        change(request)
     context={
         'form':form,
     }
-    return render(request, '../templates/chatapp/setting.html')
+    return render(request, '../templates/chatapp/setting.html',context)
 
 
 def chat(request, id):
     room_name=Room.objects.get(id=id)
-    username=User.objects.get(username=request.user.username)
+    if request.user.is_authenticated:
+        username=User.objects.get(username=request.user.username)
+    else:
+        username=User.objects.none()
     messageform = ChatForm(request.POST or None)
     imgform=PhotosForm(request.FILES)
     message=request.POST.get('msg')
@@ -101,7 +120,10 @@ def chat(request, id):
         elif "unfollow" in request.POST:
             unfollow_view(request,name=room.name)
 
-    follow=FollowRoom.objects.filter(user=username,room=room).exists()
+    if request.user.is_authenticated:
+        follow=FollowRoom.objects.filter(user=username,room=room).exists()
+    else:
+        follow=False
     context = {
         'msg':messages,
         'room': room,
@@ -207,4 +229,6 @@ def unfollow_view(request, *args, **kwargs):
 @require_POST
 def deleteroom(request, *args, **kwargs):
     room=Room.objects.get(name=kwargs['name'])
+    
     room.delete()
+

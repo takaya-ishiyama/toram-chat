@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Home{% endblock %}
+{% block title %}chat room{% endblock %}
 {% block content %}
-{% comment %} <div class="container"> {% endcomment %}
 <h1>{{room.name}}</h1>
 <div>
     <a href="/chat/{{ room.id }}">チャット</a>
     <a href="/chat/{{room.id}}/summary">まとめ</a>
     <a href="/chat/{{room.id}}/detail">ルーム情報</a>
 </div>
+{%if user.is_authenticated%}
 <div class="follow">
     <form action={% url 'chatapp:chat_room' room.id %} method="POST">
         {% csrf_token %}
@@ -18,34 +18,26 @@
             <input type="submit" name="follow" value="マイルームに追加">
         {%endif%}
     </form>
-    
 </div>
-{% if messages %}
-<ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<br>
-
-
+{%endif%}
+    
+    
 <main>
-
-
     <div>
         <ul class="select-chat-box">
             {%for message in msg%}
                 <p id='msg'>{{message.msg}}</p>
                 <p id='username'>{{message.username}}</p>
                 
-                {% endfor %}
-                {% for i in image %}
+            {% endfor %}
+            {% for i in image %}
                 <p id='image'>{{i.image}}</p>
-                {%endfor%}
-    
+            {%endfor%}
         </ul>
     </div>
+        
+
+
 
     {% if request.user.is_authenticated %}
     <div class="send-msg">
@@ -55,6 +47,8 @@
             <p><input type="submit" class="send" name="sendchat" value="送信"> </p>            
         </form>
     </div>
+    {%else%}
+        <p>ログイン後すると発言できます</p>
     {% endif %}
 
         

@@ -4,14 +4,40 @@
 {% block content %}
 {% comment %} <div class="container"> {% endcomment %}
 <h1>HOME</h1>
-<main>
-    {%if user.is_authenticated%}
-    <p><a href="{% url 'chatapp:newroom'%}">ルーム作成</a></p>
-    {%else%}
-    <p>ログインすると部屋が作成できます</p>
-    {%endif%}
 
+<main>
+    <div class="create-room">
+        {%if user.is_authenticated%}
+        <p><a href="{% url 'chatapp:newroom'%}">ルーム作成</a></p>
+        {%else%}
+        <p>ログインすると部屋が作成できます</p>
+        {%endif%}
         <br>
+    </div>
+
+    <div class="room-search">
+        <form action={% url 'chatapp:index'%} method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}  
+            <label>ルーム検索</label>
+            <input name="search-room">
+            <input type="submit" class="send" name="search" value="検索"> 
+        </form>   
+        {%for result in results%}
+        <div>
+            {%if result.image == ''%}
+            <p><a href="/chat/{{ result.id }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
+            {%else%}
+            <p><a href="/chat/{{ result.id }}"><img src="media/{{result.image}}"width="150" height="150" border="0" ></a></p>
+            {%endif%}
+            <p><a href="/chat/{{ result.id }}">{{result.name}}</a></p>
+        </div>     
+        {%endfor%}        
+        <p>{{text}}</p>
+        <br>
+    </div>
+
+    <div class="new-room-list">
         <h2>新作ルーム</h2>
         <ul class="select-room-box">
             {%for lis in list%}
@@ -27,6 +53,7 @@
             {%endif%}   
             {%endfor%}
         </ul>
+    </div>
 
 </main>
 </div>

@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username=models.CharField(verbose_name='username', max_length=30, unique=True,)
-    # icon = models.ImageField(verbose_name='プロフィール画像', upload_to="icon/", blank=True, null=True)
+    icon = models.ImageField(verbose_name='プロフィール画像', upload_to="icon/", blank=True, null=True)
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     is_staff = models.BooleanField(_("staff status"), default=False)
     is_active = models.BooleanField(_("active"), default=True)
