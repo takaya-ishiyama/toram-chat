@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}chat_room_detail{% endblock %}
+{% block content %}
+<h1>ルーム詳細</h1>
+<main>
+    <a href="/chat/{{ room.id }}">チャット</a>
+    <a href="/chat/{{room.id}}/2/summary">まとめ</a>
+    <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
+
+    {%if all_user_display%}
+    <div class="display">
+        <p>部屋の名前：{{field.name}}</p>
+        {%if field.image == ""%}
+        <p><img src="{% static "img/no_image.png"%}" with="150" height="150"></p>
+        {%else%}
+        <p>画像：<img src="/media/{{field.image}}" with="150" height="150"></p>
+        {%endif%}
+        <p>ルームマスター：{{field.master}}</p>
+        <p>詳細：{{field.detail}}</p>
+    </div>
+    {%endif%}
+    {%if judge%}
+    <form action={% url 'chatapp:detail' room.id%} method="POST">
+        {% csrf_token %}
+        <div class="edit-detail">
+            <button class="send" type="submit" name="edit" >
+            編集
+            </button>
+        </div>
+    </form>
+    {%endif%}
+
+        {%if edit%}
+        <div class="change-room-fields-box">
+            <form action={% url 'chatapp:detail' room.id%} method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>
+                    <label for="id_name">部屋の名前:</label>
+                    <input value="{{room.name}}" type="text" name="name" maxlength="50" required id="id_name">      
+                </p>
+                <p>{{text}}</p>
+                <p>
+                    <label for="id_image">アイコン画像:</label>
+                    <input type="file" name="image" accept="image/*" id="id_image">
+                </p>
+                <p>
+                    <label for="id_detail">ルーム詳細:</label>
+                    <textarea name="detail" cols="40" rows="10" maxlength="400" id="id_detail">{{room.detail}}</textarea>
+                </p>   
+                <p><input type="submit" class="send" name="change" value="送信"> </p>    
+            </form>
+        </div>
+        <br>
+        <form action={% url 'chatapp:detail' room.id%} method="POST">
+            {% csrf_token %}
+            <div class="clean-room">
+                <button class="send" type="submit" name="roomdelete" onclick='return confirm("本当に削除しますか？");'>
+                ルームを削除
+                </button>
+            </div>
+        </form>
+    {%endif%}
+</main>
+</div>
+{% endblock %}

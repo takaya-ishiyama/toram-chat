@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    {% comment %} <meta http-equiv="X-UA-Compatible" content="IE=edge"> {% endcomment %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!--script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"> -->
+    <title>{% if request.path != '/' %}{% block title %}{% endblock %} | {% endif %} Toram chat App</title>
+</head>
+<body>
+    <header>
+        {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'chatapp:index' %}">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        <a class="nav-link" href="{% url 'chatapp:my_chat_room' %}">参加中のチャットルーム</a>
+        <a class="nav-link" href="{% url 'chatapp:setting' %}">設定</a> {% endcomment %}
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"></a>
+            {% comment %} <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button> {% endcomment %}
+            <form action="{% url 'chatapp:index' %}" method="POST">
+                {% csrf_token %}
+                {% load static %}
+                <input type="image" src="{% static "img/TLlogo.jpg" %}" width="50" height="50"     name="button_logo">    
+            </form>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'chatapp:index' %}">ホーム</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'chatapp:my_chat_room' %}">マイルーム</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'chatapp:setting' %}">設定</a>
+                  </li>
+                {% if request.user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:logout' %}">ログアウト</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:login' %}">ログイン</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link"  href="{% url 'account:register' %}">ユーザー登録</a>
+                  </li>
+                  {% endif %}
+                  {% comment %} <li class="nav-item">
+                    <a href="{% url 'chatapp:setting' %}">{{ user.username }}</a>
+                  </li> {% endcomment %}
+                  {% if user.is_authenticated%}
+                  {% if user.icon %}
+                  <li class="nav-item">
+                    <a href="{% url 'chatapp:setting' %}"><img src="/media/{{user.icon}}" width="50" height="50" border=""></a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a href="{% url 'chatapp:setting' %}"><img src={% static 'img/no_image.png'%}  width="50" height="50" border=""></a>
+                  </li>
+                  {% endif %}
+                  {% endif %}
+                </ul>
+              </div>
+          </nav>
+
+    </heder>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

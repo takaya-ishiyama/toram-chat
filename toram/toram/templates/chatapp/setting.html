@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}setting{% endblock %}
+{% block content %}
+<h1>設定</h1>
+<main>
+    <div class="profile">
+        <h2>ユーザー情報表示</h2>
+        <p>ユーザー名：{{user.username}}</p>
+        {% if user.icon %}
+        <li class="">
+            <p><label>アイコン</label></p>
+            <a href="{% url 'chatapp:setting' %}"><img src="/media/{{user.icon}}" width="150" height="150" border=""></a>
+        </li>
+        {% else %}
+        <li class="">
+            <p><label>アイコン</label></p>
+            <a href="{% url 'chatapp:setting' %}"><img src="static/img/no_image.png" width="150" height="150" border=""></a>
+        </li>
+        {% endif %}
+        <br>
+    </div>
+
+    {%if username_already_exists != None%}
+        {{username_already_exists}}
+    {%endif%}
+    <form action={% url 'chatapp:setting'%} method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+        <label for="id_username">Username:</label>
+        <input type="text" name="username" maxlength="30" >
+        </p>  
+        <p>
+            <label for="id_icon">プロフィール画像:</label>
+            <input type="file" name="icon" accept="image/*" id="id_icon">            
+        </p>
+        <p><input type="submit" class="send" name="changeprofile" value="送信"> </p>    
+      </form>
+    <br>
+    <h2>問い合わせフォーム</h2>
+    <p><a href="#">toram.lobi.chat@gmail.com</a></p>
+    <p><a href="https://twitter.com/LobiToram">Twitter</a></p>
+</main>
+</div>
+{% endblock %}

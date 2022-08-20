@@ -1,0 +1,6 @@
+command
+
+docker-compose up
+docker-compose down --rmi all --volumes --remove-orphans
+sudo chown -R takaya /home/takaya/MyPrograming/game/toram/db
+

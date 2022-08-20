@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}my_chat_room{% endblock %}
+{% block content %}
+<h1>追加したマイルーム</h1>
+<main>
+    <div>
+        {%for room in rooms%}
+            <p><a href={% url 'chatapp:chat_room' room.room.id %}>{{room.room.name}}</a></p>
+            {%if room.room.image%}
+                <p><img src="/media/{{room.room.image}}" width="150" height="150"></p>
+            {%else%}
+            <p><img src="static/img/no_image.png" width="150" height="150"></p>
+            {%endif%}
+        {%endfor%}
+    </div>
+</main>
+</div>
+{% endblock %}

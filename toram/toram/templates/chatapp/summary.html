@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}summary{% endblock %}
+{% block content %}
+<h1>まとめ</h1>
+<main>
+    <div class="room_functions">
+        <a href="/chat/{{ room.id }}">チャット</a>
+        <a href="/chat/{{room.id}}/2/summary">まとめ</a>
+        <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
+    </div>
+    <br>
+
+    <div class="summary">
+        {%for lis in summary%}
+        <div class="summary-message">
+            {%if lis.primarymessage%}
+                <p>{{lis.primarymessage.msg}}</p>
+                {%if lis.primarymessage.images%}
+                    <p><img src="/media/{{lis.primarymessage.images}}" width="150" height="150"></p>
+                {%endif%}
+                <p>{{lis.primarymessage.username}}</p>
+
+                <form action={% url 'chatapp:summary' room.id%} method="POST">
+                    {% csrf_token %}
+                    <div class="clean-summary">
+                        <input type="hidden" name="summaryobjectid" value={{lis.primarymessage.id}}>
+                        <button class="send" type="submit" name="summarydelete" onclick='return confirm("本当に削除しますか？");'>まとめから削除</button>
+                    </div>
+                </form>
+
+            {%elif lis.secondarymessage%}
+                <p>{{lis.secondarymessage.msg}}</p>
+                {%if lis.secondarymessage.images%}
+                    <p><img src="/media/{{lis.secondarymessage.images}}" width="150" height="150"></p>
+                {%endif%}
+                <p>{{lis.secondarymessage.username}}</p>
+                
+                <form action={% url 'chatapp:summary' room.id%} method="POST">
+                    {% csrf_token %}
+                    <div class="clean-summary">
+                        <input type="hidden" name="summaryobjectid" value={{lis.secondarymessage.id}}>  
+                        <button class="send" type="submit" name="summarydelete" onclick='return confirm("本当に削除しますか？");'>まとめから削除</button>
+                    </div>
+                </form>
+            {%endif%}
+
+            </div>
+            <br>
+        {%endfor%}
+    </div>
+
+    
+</main>
+</div>
+{% endblock %}

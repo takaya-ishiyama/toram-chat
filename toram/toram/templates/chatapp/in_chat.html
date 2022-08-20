@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}in chat{% endblock %}
+{% block content %}
+<h1></h1>
+<p><a href="/chat/{{ room.id }}">もどる</a></p>
+<main>
+    <div class="primarymessage">
+        <p>{{primarymessage.msg}}</p>
+        {%if primarymessage.images%}
+            <p><img src="/media/{{primarymessage.images}}" width="150" height="150"></p>
+        {%endif%}
+        <p>{{primarymessage.username}}</p>
+
+        {%if user == room.master%}
+            <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="objectid" value={{primarymessage.id}}>
+                <input type="submit" name="psummary" value="まとめに登録">
+            </form>
+        {%endif%}
+
+    </div>
+    <div>
+        <ul class="select-chat-box">
+            {%for message in msg%}
+                <div class="message">
+                    <p id='msg'>{{message.msg}}</p>
+                    <p id='username'>{{message.username}}</p>
+                    {%if message.images != ""%}
+                        <p id="image"><img src="/media/{{message.images}}" with="150" height="150"></p>
+                    {%endif%}
+                </div>
+
+                {%if user == room.master%}
+                    <div class="summary">
+                        <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="objectid" value={{message.id}}>
+                            <input type="submit" name="ssummary" value="まとめに登録">
+                        </form>
+                    </div>
+                {%endif%}
+            {% endfor %}
+
+        </ul>
+    </div>
+        
+
+
+
+    {% if request.user.is_authenticated %}
+    <div class="send-msg">
+        <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{messageform.as_p}}
+            <p><input type="submit" class="send" name="sendchat" value="送信"> </p>            
+        </form>
+    </div>
+    {%else%}
+        <p>ログイン後すると発言できます</p>
+    {% endif %}
+
+        
+
+</main>
+
+{% endblock %}
