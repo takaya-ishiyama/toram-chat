@@ -33,7 +33,7 @@
             <form action="{% url 'chatapp:index' %}" method="POST">
                 {% csrf_token %}
                 {% load static %}
-                <input type="image" src="{% static "img/TLlogo.jpg" %}" width="50" height="50"     name="button_logo">    
+                <input type="image" src="{% static 'img/TLlogo.jpg' %}" width="50" height="50"     name="button_logo">    
             </form>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
