@@ -76,11 +76,11 @@ def my_chat_room(request):
     }
     return render(request, '../templates/chatapp/my_chat_room.html',context)
 
-
 def setting(request):
     form=UserChangeForm()
     context={'form':form}
-    context=change(request)
+    if request.user.is_authenticated:
+        context=change(request)
     template=loader.get_template('chatapp/setting.html')
 
     return HttpResponse(template.render(context, request))

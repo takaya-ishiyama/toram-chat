@@ -5,6 +5,7 @@
 <h1>設定</h1>
 <main>
     <div class="profile">
+        {%if user.is_authenticated%}
         <h2>ユーザー情報表示</h2>
         <p>ユーザー名：{{user.username}}</p>
         {% if user.icon %}
@@ -19,6 +20,7 @@
         </li>
         {% endif %}
         <br>
+        {%endif%}
     </div>
 
     {%if username_already_exists != None%}

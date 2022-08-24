@@ -2,7 +2,8 @@ from multiprocessing import context
 import re
 from django.shortcuts import render, redirect, get_list_or_404
 from pymysql import NULL
-
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .form import *
 from .models import *
 from django.template import loader

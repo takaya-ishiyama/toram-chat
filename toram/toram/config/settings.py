@@ -15,6 +15,8 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -127,25 +129,24 @@ USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-if DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-else:
-    STATIC_ROOT = f'/var/www/{BASE_DIR.name}/static'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
+
+# if DEBUG:
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# else:
+#     STATIC_ROOT = f'/var/www/static/'
+
+# if DEBUG:
+MEDIA_ROOT = os.path.join (BASE_DIR, 'media/')
+# else:
+#     MEDIA_ROOT = f'/var/www/{BASE_DIR.name}/media'
+
 LOGIN_URL = 'account:login'            # ログイン時
 LOGIN_REDIRECT_URL = 'chatapp:index'   # ログイン後
 LOGOUT_REDIRECT_URL = 'chatapp:index'  # ログアウト後
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-if DEBUG:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-else:
-    MEDIA_ROOT = f'/var/www/{BASE_DIR.name}/media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

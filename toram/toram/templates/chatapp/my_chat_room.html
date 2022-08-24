@@ -8,9 +8,9 @@
         {%for room in rooms%}
             <p><a href={% url 'chatapp:chat_room' room.room.id %}>{{room.room.name}}</a></p>
             {%if room.room.image%}
-                <p><img src="/media/{{room.room.image}}" width="150" height="150"></p>
+                <p><a href={% url 'chatapp:chat_room' room.room.id %}><img src="/media/{{room.room.image}}" width="150" height="150"></a></p>
             {%else%}
-            <p><img src="static/img/no_image.png" width="150" height="150"></p>
+                <p><a href={% url 'chatapp:chat_room' room.room.id %}><img src="static/img/no_image.png" width="150" height="150"></a></p>
             {%endif%}
         {%endfor%}
     </div>
