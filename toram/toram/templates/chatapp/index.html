@@ -4,7 +4,6 @@
 {% block content %}
 {% comment %} <div class="container"> {% endcomment %}
 <h1>HOME</h1>
-
 <main>
     <div class="create-room">
         {%if user.is_authenticated%}
@@ -33,7 +32,6 @@
             <p><a href="/chat/{{ result.id }}">{{result.name}}</a></p>
         </div>     
         {%endfor%}        
-        <p>{{text}}</p>
         <br>
     </div>
 
@@ -48,6 +46,7 @@
                 {%else%}
                 <p><a href="/chat/{{ lis.id }}"><img src="media/{{lis.image}}"width="150" height="150" border="0" ></a></p>
                 {%endif%}
+                {{lis.image}}
                 <p><a href="/chat/{{ lis.id }}">{{lis.name}}</a></p>
             </div>     
             {%endif%}   

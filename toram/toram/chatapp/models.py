@@ -33,7 +33,7 @@ class Messages(models.Model):
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=50)
-    images=models.ImageField(upload_to='mediachat/', null=True, blank=True)
+    images=models.ImageField(upload_to='media/', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg
@@ -47,7 +47,7 @@ class InMessages(models.Model):
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=50)
-    images=models.ImageField(upload_to='mediachat/', null=True, blank=True)
+    images=models.ImageField(upload_to='media/', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg

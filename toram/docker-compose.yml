@@ -15,6 +15,7 @@ services:
       - ./nginx/logs/nginx/:/var/log/nginx/
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./toram/static:/var/www/static/
+      - ./toram/media:/var/www/media/
     depends_on:
       - django
 

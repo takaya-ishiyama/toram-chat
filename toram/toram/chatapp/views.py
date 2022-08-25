@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_list_or_404
 from pymysql import NULL
 from account.views import change
 import chatapp, account
+import os
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from chatapp.form import *
@@ -257,9 +258,7 @@ def unfollow_view(request, *args, **kwargs):
 @require_POST
 def deleteroom(request, *args, **kwargs):
     room=Room.objects.get(name=kwargs['name'])
-    
     room.delete()
-
 
 def summary(request,id):
     room=Room.objects.get(id=id)

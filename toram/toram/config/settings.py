@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'chatapp.apps.ChatappConfig',
+    'django_cleanup.apps.CleanupConfig',
     'chatapp',
     'account.apps.AccountConfig',
 ]

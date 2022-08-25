@@ -13,3 +13,5 @@ ADD nginx/robots.txt /usr/share/nginx/robots.txt
 # Web Resource
 RUN mkdir -p /var/www/static
 ADD toram/static /var/www/static/
+RUN mkdir -p /var/www/media
+ADD toram/media /var/www/media/
