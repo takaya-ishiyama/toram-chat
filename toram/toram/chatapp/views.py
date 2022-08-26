@@ -27,10 +27,8 @@ def index(request):
         query=request.POST.get('search-room')
         query=query.split()
         for word in query:
-            print(word)
             results = results.union(Room.objects.filter(Q(name__icontains=word)|Q(detail__icontains=word)).all())        
         if results.exists()==False:
-            print('ok')
             text="見つかりません"
         else:
             pass

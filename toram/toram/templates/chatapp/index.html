@@ -5,6 +5,7 @@
 {% comment %} <div class="container"> {% endcomment %}
 <h1>HOME</h1>
 <main>
+
     <div class="create-room">
         {%if user.is_authenticated%}
         <p><a href="{% url 'chatapp:newroom'%}">ルーム作成</a></p>
@@ -14,25 +15,39 @@
         <br>
     </div>
 
-    <div class="room-search">
-        <form action={% url 'chatapp:index'%} method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}  
-            <label>ルーム検索</label>
-            <input name="search-room">
-            <input type="submit" class="send" name="search" value="検索"> 
-        </form>   
-        {%for result in results%}
-        <div>
-            {%if result.image == ''%}
-            <p><a href="/chat/{{ result.id }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
-            {%else%}
-            <p><a href="/chat/{{ result.id }}"><img src="media/{{result.image}}"width="150" height="150" border="0" ></a></p>
-            {%endif%}
-            <p><a href="/chat/{{ result.id }}">{{result.name}}</a></p>
-        </div>     
-        {%endfor%}        
-        <br>
+
+    <div class="row">
+        <div class="col">
+            <input class="form-control form-control-lg" name="search-room" id="" type="email" placeholder="ルーム検索" data-sb-validations="required,email" />
+            <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:required">Email Address is required.</div>
+            <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:email">Email Address Email is not valid.</div>
+        </div>
+        <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button></div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <form action={% url 'chatapp:index'%} method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}  
+                <input class="form-control form-control-lg" name="search-room" placeholder="ルーム検索">
+                <input type="submit" class="btn btn-primary btn-lg disabled" name="search" value="検索">
+            </form> 
+        </div>
+            
+            {%for result in results%}
+            <div>
+                {%if result.image == ''%}
+                <p><a href="/chat/{{ result.id }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
+                {%else%}
+                <p><a href="/chat/{{ result.id }}"><img src="media/{{result.image}}"width="150" height="150" border="0" ></a></p>
+                {%endif%}
+                <p><a href="/chat/{{ result.id }}">{{result.name}}</a></p>
+            </div>     
+            {%endfor%}        
+            <br>
+        
     </div>
 
     <div class="new-room-list">
