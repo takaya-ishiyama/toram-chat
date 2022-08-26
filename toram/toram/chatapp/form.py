@@ -19,7 +19,7 @@ class ChangeRoomFieldsFrom(forms.ModelForm):
             'name':'部屋の名前',
             'image':'アイコン画像',
             'detail':'ルーム詳細',
-        }
+            }
     
     def clean(self):
         cleaned_data = super().clean()

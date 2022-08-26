@@ -4,7 +4,17 @@
 {% block content %}
 <h1></h1>
 <p><a href="/chat/{{ room.id }}">もどる</a></p>
+<br>
 <main>
+    {%if user == room.master%}
+    <div class="add-summary">
+        <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
+            {% csrf_token %}
+            <input type="submit" name="add-summary" value="まとめへ追加">
+        </form>
+    </div>
+    {%endif%}
+    
     <div class="primarymessage">
         <p>{{primarymessage.msg}}</p>
         {%if primarymessage.images%}
@@ -12,7 +22,7 @@
         {%endif%}
         <p>{{primarymessage.username}}</p>
 
-        {%if user == room.master%}
+        {%if user == room.master and displaysummary%}
             <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="objectid" value={{primarymessage.id}}>
@@ -32,7 +42,7 @@
                     {%endif%}
                 </div>
 
-                {%if user == room.master%}
+                {%if user == room.master and displaysummary%}
                     <div class="summary">
                         <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
                             {% csrf_token %}

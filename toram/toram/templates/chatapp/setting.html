@@ -4,25 +4,8 @@
 {% block content %}
 <h1>設定</h1>
 <main>
-    <div class="profile">
-        {%if user.is_authenticated%}
-        <h2>ユーザー情報表示</h2>
-        <p>ユーザー名：{{user.username}}</p>
-        {% if user.icon %}
-        <li class="">
-            <p><label>アイコン</label></p>
-            <a href="{% url 'chatapp:setting' %}"><img src="/media/{{user.icon}}" width="150" height="150" border=""></a>
-        </li>
-        {% else %}
-        <li class="">
-            <p><label>アイコン</label></p>
-            <a href="{% url 'chatapp:setting' %}"><img src="static/img/no_image.png" width="150" height="150" border=""></a>
-        </li>
-        {% endif %}
-        <br>
-        {%endif%}
-    </div>
 
+    {%if judgeprofileedit%}
     {%if username_already_exists != None%}
         {{username_already_exists}}
     {%endif%}
@@ -30,7 +13,7 @@
         {% csrf_token %}
         <p>
         <label for="id_username">Username:</label>
-        <input type="text" name="username" maxlength="30" >
+        <input type="text" name="username" maxlength="30" value={{user.username}}>
         </p>  
         <p>
             <label for="id_icon">プロフィール画像:</label>
@@ -39,6 +22,51 @@
         <p><input type="submit" class="send" name="changeprofile" value="送信"> </p>    
       </form>
     <br>
+
+    <br>
+    <form action={% url 'chatapp:setting'%} method="POST">
+        {% csrf_token %}
+        <div class="userdelete">
+            <button class="send" type="submit" name="userdelete" onclick='return confirm("本当に削除しますか？");'>
+            アカウントを削除
+            </button>
+        </div>
+    </form>
+    <br> 
+
+    {%else%}
+    <div>
+        <div class="profile">
+            {%if user.is_authenticated%}
+            <h2>ユーザー情報表示</h2>
+            <p>ユーザー名：{{user.username}}</p>
+            {% if user.icon %}
+            <li class="">
+                <p><label>アイコン</label></p>
+                <a href="{% url 'chatapp:setting' %}"><img src="/media/{{user.icon}}" width="150" height="150" border=""></a>
+            </li>
+            {% else %}
+            <li class="">
+                <p><label>アイコン</label></p>
+                <a href="{% url 'chatapp:setting' %}"><img src="static/img/no_image.png" width="150" height="150" border=""></a>
+            </li>
+            {% endif %}
+            <br>
+            {%endif%}
+        </div>
+        
+        <div>
+            {%if user.is_authenticated%}
+            <form action={% url 'chatapp:setting'%} method="POST">
+                {% csrf_token %}
+                <p><input type="submit" class="send" name="profileedit" value="プロフィールを編集"></p>    
+            </fomr>
+            {%endif%}
+        </div>
+    </div>
+    {%endif%}
+
+
     <h2>問い合わせフォーム</h2>
     <p><a href="#">toram.lobi.chat@gmail.com</a></p>
     <p><a href="https://twitter.com/LobiToram">Twitter</a></p>

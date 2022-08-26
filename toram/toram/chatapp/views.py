@@ -78,10 +78,21 @@ def my_chat_room(request):
     return render(request, '../templates/chatapp/my_chat_room.html',context)
 
 def setting(request):
+    judgeprofileedit=False
     form=UserChangeForm()
-    context={'form':form}
-    if request.user.is_authenticated:
-        context=change(request)
+    context={"judgeprofileedit":judgeprofileedit,}
+    if request.method=='POST':
+        if "changeprofile" in request.POST:
+           context=change(request)
+        if "userdelete" in request.POST:
+            User.objects.filter(username=request.user.username).delete()
+            logout(request)
+            return index(request)
+        if "profileedit" in request.POST:
+            judgeprofileedit=True
+            context={'form':form,
+                     'judgeprofileedit':judgeprofileedit,
+                    }
     template=loader.get_template('chatapp/setting.html')
 
     return HttpResponse(template.render(context, request))
@@ -131,6 +142,7 @@ def chat(request, id):
 
 # チャットinチャット
 def inchat(request, id, messageid):
+    displaysummary=False
     room=Room.objects.get(id=id)
     primarymessage=Messages.objects.get(id=messageid)
     summarytext=""
@@ -159,11 +171,16 @@ def inchat(request, id, messageid):
             messageobject=InMessages.objects.get(id=request.POST.get('objectid'))
             register_summary(request, room, messageobject)
 
+        elif "add-summary" in request.POST:
+            print('okay')
+            displaysummary=True
+
     context = {
         'room':room,
         'primarymessage':primarymessage,
         'msg':messages,
         'messageform':messageform,
+        'displaysummary':displaysummary
     }
     return HttpResponse(template.render(context,request))
 

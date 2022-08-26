@@ -15,7 +15,7 @@ class Room(models.Model):
     master=models.ForeignKey(
         User,
         related_name='room_master',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True
     )

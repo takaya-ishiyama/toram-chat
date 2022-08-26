@@ -41,11 +41,19 @@ def change(request):
             user.username=form.cleaned_data['username']
             if request.POST.get('icon') != "":
                 user.icon=form.cleaned_data['icon']
-                print(user.icon)
-        else:
-            context={'form':UserChangeForm(), 'username_already_exists':"同名のユーザーが存在します"}
-            return context
 
         user.save()
         context={'form':UserChangeForm(), 'user':user}
         return context
+
+    elif request.user.username==request.POST.get('username'):
+        if request.POST.get('icon') != "":
+          user.icon=form.cleaned_data['icon']
+        user.save()
+        context={'form':UserChangeForm(), 'user':user}
+        return context    
+    else:
+        judgeprofileedit=True
+        context={'form':UserChangeForm(), 'username_already_exists':"同名のユーザーが存在します","judgeprofileedit":judgeprofileedit}
+        return context
+
