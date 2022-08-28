@@ -130,7 +130,7 @@ USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-ALLOWED_HOSTS = ['127.0.0.1','160.16.130.232', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1','160.16.130.232', '133.167.73.169','localhost']
 
 STATIC_URL = '/static/'
 
