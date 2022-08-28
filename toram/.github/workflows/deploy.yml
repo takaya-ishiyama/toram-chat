@@ -1,0 +1,20 @@
+name: toram-lobi-deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: toram-lobi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install SSH key
+        uses: actions/ssh-key-action@v2 # こちらのアクションがキモ
+        with:
+          key: ${{ secrets.SSH_KEY }} # 必須
+          name: git_rsa # optional
+          known_hosts: ${{ secrets.KNOWN_HOSTS }} # 必須
+      - name: deploy
+        run: bash deploy.sh
