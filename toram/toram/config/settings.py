@@ -133,15 +133,9 @@ ALLOWED_HOSTS = ['127.0.0.1','153.121.57.137','localhost']
 
 STATIC_URL = '/static/'
 
-# if DEBUG:
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-# else:
-#     STATIC_ROOT = f'/var/www/static/'
 
-# if DEBUG:
 MEDIA_ROOT = os.path.join (BASE_DIR, 'media/')
-# else:
-#     MEDIA_ROOT = f'/var/www/{BASE_DIR.name}/media'
 
 LOGIN_URL = 'account:login'            # ログイン時
 LOGIN_REDIRECT_URL = 'chatapp:index'   # ログイン後
