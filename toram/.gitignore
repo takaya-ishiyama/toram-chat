@@ -3,3 +3,4 @@ pass
 memo
 bg-masthead.jpg
 docker-compose.dev.yml
+*migrations/
