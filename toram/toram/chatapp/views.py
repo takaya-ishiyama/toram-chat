@@ -116,6 +116,8 @@ def chat(request, id):
             result=Messages.objects.create(username=username, msg=message, room=room,images=images)
             messages = Messages.objects.filter(room__name=room_name).order_by('-created_at')
             messageform=ChatForm()
+            roomid=str(room.id)
+            return redirect('chatapp:chat_room',roomid)
         #マイルーム追加と解除
         elif "follow" in request.POST:
             follow_view(request,name=room.name)
@@ -160,6 +162,7 @@ def inchat(request, id, messageid):
             result=InMessages.objects.create(username=username, msg=message, room=primarymessage,images=images)
             messages = InMessages.objects.filter(room=primarymessage).order_by('-created_at')
             messageform=ChatForm()
+            return redirect('chatapp:in_chat_room',id,str(primarymessage.id),)
 
         elif "psummary" in request.POST and summarytext != already:
             messageobject=Messages.objects.get(id=request.POST.get('objectid'))

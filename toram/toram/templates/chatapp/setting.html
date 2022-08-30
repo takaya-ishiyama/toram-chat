@@ -9,6 +9,7 @@
     {%if username_already_exists != None%}
         {{username_already_exists}}
     {%endif%}
+    <a href={% url 'chatapp:setting'%}>戻る</a>
     <form action={% url 'chatapp:setting'%} method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <p>
@@ -41,15 +42,9 @@
             <h2>ユーザー情報表示</h2>
             <p>ユーザー名：{{user.username}}</p>
             {% if user.icon %}
-            <li class="">
-                <p><label>アイコン</label></p>
-                <a href="{% url 'chatapp:setting' %}"><img src="/media/{{user.icon}}" width="150" height="150" border=""></a>
-            </li>
+                <img src="/media/{{user.icon}}" width="150" height="150" border="">
             {% else %}
-            <li class="">
-                <p><label>アイコン</label></p>
-                <a href="{% url 'chatapp:setting' %}"><img src="static/img/no_image.png" width="150" height="150" border=""></a>
-            </li>
+                <img src="static/img/no_image.png" width="150" height="150" border="">
             {% endif %}
             <br>
             {%endif%}

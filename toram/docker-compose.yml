@@ -11,7 +11,7 @@ services:
       TZ: 'Asia/Tokyo'
     ports:
       - 80:80
-      - 8000:8000
+      # - 8000:8000
     volumes:
       - ./nginx/logs/nginx/:/var/log/nginx/
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
@@ -31,7 +31,7 @@ services:
       DATABASE_HOST: db
     expose:
       - "8001"
-      - "3001"
+      # - "3001"
     volumes:
       - ./toram:/toram-lobi/
     depends_on:
