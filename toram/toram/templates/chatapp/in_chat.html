@@ -10,7 +10,7 @@
     <div class="add-summary">
         <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
             {% csrf_token %}
-            <input type="submit" name="add-summary" value="まとめへ追加">
+            <input type="submit" name="add-summary" value="まとめ登録の編集">
         </form>
     </div>
     {%endif%}

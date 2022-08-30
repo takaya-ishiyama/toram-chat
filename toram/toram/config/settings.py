@@ -26,9 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-vemk*hswu9x(#xa^et8am5mb9-nv0k9$yq8ju1m_ngu^hdwz^5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -136,12 +135,12 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_ROOT ='/var/www/static/'
 
-MEDIA_ROOT = os.path.join (BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 LOGIN_URL = 'account:login'            # ログイン時
 LOGIN_REDIRECT_URL = 'chatapp:index'   # ログイン後
 LOGOUT_REDIRECT_URL = 'chatapp:index'  # ログアウト後
-MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
