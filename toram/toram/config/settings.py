@@ -133,7 +133,8 @@ ALLOWED_HOSTS = ['127.0.0.1','153.121.57.137','localhost','toram-chat.com']
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT ='/var/www/static/'
 
 MEDIA_ROOT = os.path.join (BASE_DIR, 'media/')
 
