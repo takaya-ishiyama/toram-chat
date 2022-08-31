@@ -1,6 +1,9 @@
 error.log
+access.log
 pass
 memo
 bg-masthead.jpg
 docker-compose.dev.yml
 *migrations/
+Dockerfile.dev
+default.dev.conf

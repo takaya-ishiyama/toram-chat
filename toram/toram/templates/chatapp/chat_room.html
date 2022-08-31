@@ -36,38 +36,38 @@
                         <p id='msg'>{{message.msg}}</p>
                     </a>
                     <p id='username'>{{message.username}}</p>
-                    {%if message.images != ""%}
-                        <p id="image"><img src="/media/{{message.images}}" with="150" height="150"></p>
-                    {%endif%}
-                    {% comment %} <div class="summary">
-                        <form action={% url 'chatapp:chat_room' room.id %} method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="objectid" value={{message.id}}>
-                            <input type="submit" name="summary" value="まとめに登録">
-                        </form>
-                    </div> {% endcomment %}
-                                    </div>
+                        {%for img in message.pmaltipleimages_set.all%}
+                        {% if forloop.counter <= 1 %}
+                            <p id="image">
+                                <a href="#"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                                {{message.pmaltipleimages_set.all.count}}枚の画像
+                            </p>
+                        {%endif%}
+                        {%endfor%}
+
+                </div>
             {% endfor %}
 
         </ul>
     </div>
-        
-
-
 
     {% if request.user.is_authenticated %}
     <div class="send-msg">
         <form action={% url 'chatapp:chat_room' room.id %} method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{messageform.as_p}}
-            <p><input type="submit" class="send" name="sendchat" value="送信"> </p>            
+            <p><label for="id_msg">Msg:</label>
+                <textarea name="msg" cols="40"  id="id_msg"></textarea>   
+            </p>            
+              <p><label for="id_images">Images:</label>
+            <input type="file" name="images" multiple accept="image/*" required id="id_images">
+            </p>
+            <p><input type="submit" class="send" name="sendchat" value="送信" onclick="multipleFunction()"> </p>            
         </form>
     </div>
     {%else%}
         <p>ログイン後すると発言できます</p>
     {% endif %}
 
-        
 
 </main>
 {% endblock %}

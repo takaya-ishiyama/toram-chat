@@ -102,18 +102,23 @@ def chat(request, id):
         username=User.objects.get(username=request.user.username)
     else:
         username=User.objects.none()
-    messageform = ChatForm(request.POST or None, request.FILES)
+    messageform = ChatForm(request.POST or None)
     message=request.POST.get('msg')
-    images=request.FILES.get('images')
+    images=request.FILES.getlist('images')
     room = Room.objects.filter(name=room_name)[0]
     messages = Messages.objects.filter(room__name=room_name).order_by('-created_at') 
     template = '../templates/chatapp/chat_room.html'
     loadtemplate=loader.get_template('chatapp/chat_room.html')
-        
+    
+
     if request.method == 'POST':
-        #チャットバリテーションと登録
-        if messageform.is_valid() and message!=None and "sendchat" in request.POST and message!="":
-            result=Messages.objects.create(username=username, msg=message, room=room,images=images)
+        #チャットバリテーションと登録        
+        if message!=None and "sendchat" in request.POST and message!="":
+            print('ok')
+            result=Messages.objects.create(username=username, msg=message, room=room)
+            for l in images:
+                imagesobject=PMaltipleImages.objects.create(image=l, message=result)
+
             messages = Messages.objects.filter(room__name=room_name).order_by('-created_at')
             messageform=ChatForm()
             roomid=str(room.id)

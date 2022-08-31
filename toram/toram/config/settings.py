@@ -26,7 +26,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-vemk*hswu9x(#xa^et8am5mb9-nv0k9$yq8ju1m_ngu^hdwz^5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 
 
@@ -125,15 +124,17 @@ USE_L10N = True
 
 # USE_TZ = True
 
+DEBUG = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 ALLOWED_HOSTS = ['127.0.0.1','153.121.57.137','localhost','toram-chat.com']
 
 STATIC_URL = '/static/'
-
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_ROOT ='/var/www/static/'
+if DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+else:
+    STATIC_ROOT ='/var/www/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'

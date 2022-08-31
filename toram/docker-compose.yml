@@ -11,7 +11,7 @@ services:
       TZ: 'Asia/Tokyo'
     ports:
       - 80:80
-      # - 8000:8000
+      - 8000:8000
     volumes:
       - ./nginx/logs/nginx/:/var/log/nginx/
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params

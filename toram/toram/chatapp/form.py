@@ -45,15 +45,12 @@ class ChangeRoomFieldsFrom(forms.ModelForm):
 class ChatForm(forms.ModelForm):
     class Meta:
         model = Messages
-        fields = ('msg','images')
-        labels={
-            'msg':'',
-            'images':'',
-        }
+        fields = ('msg',)
 
 
 
-class PhotosForm(forms.Form):
+
+class ImagesForm(forms.Form):
     photos_field = forms.ImageField(
             widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
