@@ -36,14 +36,6 @@ class Messages(models.Model):
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=50)
-    # images = models.ForeignKey(
-    #     MaltipleImages,
-    #     related_name='room_mesages',
-    #     on_delete=models.CASCADE,
-    #     null=True,
-    #     blank=True
-    # )
-    # images=models.ImageField(upload_to='media/', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg
@@ -52,7 +44,7 @@ class PMaltipleImages(models.Model):
     image=models.ImageField(upload_to='media/', null=True, blank=True)
     message=models.ForeignKey(
         Messages, 
-        verbose_name="images", 
+        verbose_name="pimages",  
         on_delete=models.CASCADE
         )
 
@@ -70,6 +62,16 @@ class InMessages(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg
+
+
+class SMaltipleImages(models.Model):
+    image=models.ImageField(upload_to='media/', null=True, blank=True)
+    message=models.ForeignKey(
+        InMessages, 
+        verbose_name="simages",  
+        on_delete=models.CASCADE
+        )
+
 
 class FollowRoom(models.Model):
     user=models.ForeignKey(

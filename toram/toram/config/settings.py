@@ -136,7 +136,12 @@ if DEBUG:
 else:
     STATIC_ROOT ='/var/www/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+if DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'media/')
+else:
+    STATIC_ROOT ='/var/www/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 LOGIN_URL = 'account:login'            # ログイン時
@@ -148,3 +153,5 @@ LOGOUT_REDIRECT_URL = 'chatapp:index'  # ログアウト後
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+FILE_UPLOAD_PERMISSIONS = 0o644
