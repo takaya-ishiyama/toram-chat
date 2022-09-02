@@ -136,15 +136,11 @@ if DEBUG:
 else:
     STATIC_ROOT ='/var/www/static/'
 
-
-if DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'media/')
-else:
-    STATIC_ROOT ='/var/www/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
-LOGIN_URL = 'account:login'            # ログイン時
+
+LOGIN_URL = 'account:login'         # ログイン時
 LOGIN_REDIRECT_URL = 'chatapp:index'   # ログイン後
 LOGOUT_REDIRECT_URL = 'chatapp:index'  # ログアウト後
 # Default primary key field type

@@ -117,7 +117,7 @@ def chat(request, id):
             print('ok')
             result=Messages.objects.create(username=username, msg=message, room=room)
             for l in images:
-                imagesobject=PMaltipleImages.objects.create(image=l, message=result)
+                imagesobject=PMaltipleImages.objects.create(image=l, message=result, room=room)
 
             messages = Messages.objects.filter(room__name=room_name).order_by('-created_at')
             messageform=ChatForm()

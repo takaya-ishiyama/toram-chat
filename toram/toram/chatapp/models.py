@@ -47,6 +47,11 @@ class PMaltipleImages(models.Model):
         verbose_name="pimages",  
         on_delete=models.CASCADE
         )
+    room = models.ForeignKey(
+        Room,
+        related_name='room_pimage',
+        on_delete=models.CASCADE
+    )
 
 
 class InMessages(models.Model):
