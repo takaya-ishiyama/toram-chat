@@ -42,11 +42,9 @@
                                 </p>
                             {%endif%}
                         {%endfor%}
-                        {%if message.in_mesages.all.count != 0%}
                         <a href="/chat/{{room.id}}/{{message.id}}">
                             <p>{{message.in_mesages.all.count}}個の返信</p>
                         </a>
-                        {%endif%}
                 </div>
                 </div>
             {% endfor %}
