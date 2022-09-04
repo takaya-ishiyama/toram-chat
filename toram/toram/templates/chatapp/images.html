@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}images{% endblock %}
+{% block content %}
+
+
+
+        <div class="container">
+            <h1 class="my-3">カルーセル</h1>
+            <div class="carousel slide" id="sample" data-ride="carousel">
+              <div class="carousel-inner">
+                  {%for image in images%}
+                  {% if forloop.counter <= 1 %}
+                  <div class="carousel-item active" data-bs-interval="10000">
+                        <img src="/media/{{image.image}}" class="d-block w-100" >
+                    </div>
+                    {%else%}
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="/media/{{image.image}}" class="d-block w-100">
+                    </div>
+                    {%endif%}
+                    {%endfor%}
+            </div>
+            <a href="#sample" class="carousel-control-prev" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="sr-only">前の画像へ</span>
+            </a>
+              <a href="#sample" class="carousel-control-next" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="sr-only">次の画像へ</span>
+              </a>
+            </div>
+          </div>
+          <!-- Optional JavaScript -->
+          <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      
+{% endblock %}

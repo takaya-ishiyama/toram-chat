@@ -12,5 +12,7 @@ urlpatterns=[
     path(r'chat/<id>/<messageid>',views.inchat,name='in_chat_room'),    
     path(r'chat/<id>/3/detail',views.detail, name='detail'),
     path(r'chat/<id>/2/summary',views.summary,name='summary'),
-    path(r'chat/newroom/',views.newroom,name="newroom")
+    path(r'chat/newroom/',views.newroom,name="newroom"),
+    path(r'chat/<id>/media/images',views.images,name="images")
+
 ] 

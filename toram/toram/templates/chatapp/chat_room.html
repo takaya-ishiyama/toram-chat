@@ -39,7 +39,7 @@
                     {%for img in message.pmaltipleimages_set.all%}
                         {% if forloop.counter <= 1 %}
                             <p id="image">
-                                <a href="#"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                                <a href="/chat/{{message.id}}/media/images"><img src="/media/{{img.image}}" with="150" height="150"></a>
                                 {{message.pmaltipleimages_set.all.count}}枚の画像
                             </p>
                         {%endif%}

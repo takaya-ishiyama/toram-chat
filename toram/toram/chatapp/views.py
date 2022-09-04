@@ -190,6 +190,14 @@ def inchat(request, id, messageid):
     }
     return HttpResponse(template.render(context,request))
 
+def images(request,id):
+    mobj=Messages.objects.get(id=id)
+    print(mobj)
+    images=mobj.pmaltipleimages_set.all()
+    print(images)
+    context={'images':images,}
+    return render(request,"chatapp/images.html",context)
+
 def detail(request,id):
     all_user_display=True
     room_name=Room.objects.get(id=id)
