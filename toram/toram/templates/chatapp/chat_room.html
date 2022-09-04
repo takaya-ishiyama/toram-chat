@@ -32,18 +32,22 @@
         <ul class="select-chat-box">
             {%for message in msg%}
                 <div class="message">
-                    <a href="/chat/{{room.id}}/{{message.id}}">
+                    <div class="kakomi-maru4"><span class="title-maru4">{{message.username}}</span>
                         <p id='msg'>{{message.msg}}</p>
-                    </a>
-                    <p id='username'>{{message.username}}</p>
-                    {%for img in message.pmaltipleimages_set.all%}
-                        {% if forloop.counter <= 1 %}
-                            <p id="image">
-                                <a href="/chat/{{message.id}}/media/images"><img src="/media/{{img.image}}" with="150" height="150"></a>
-                                {{message.pmaltipleimages_set.all.count}}枚の画像
-                            </p>
+                        {%for img in message.pmaltipleimages_set.all%}
+                            {% if forloop.counter <= 1 %}
+                                <p id="image">
+                                    <a href="/chat/{{message.id}}/media/images" target="_blank"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                                    {{message.pmaltipleimages_set.all.count}}枚の画像
+                                </p>
+                            {%endif%}
+                        {%endfor%}
+                        {%if message.in_mesages.all.count != 0%}
+                        <a href="/chat/{{room.id}}/{{message.id}}">
+                            <p>{{message.in_mesages.all.count}}個の返信</p>
+                        </a>
                         {%endif%}
-                    {%endfor%}
+                </div>
                 </div>
             {% endfor %}
 
@@ -54,11 +58,11 @@
     <div class="send-msg">
         <form action={% url 'chatapp:chat_room' room.id %} method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <p><label for="id_msg">Msg:</label>
+            <p><label for="id_msg"></label>
                 <textarea name="msg" cols="40"  id="id_msg"></textarea>   
             </p>            
-              <p><label for="id_images">Images:</label>
-            <input type="file" name="images" multiple accept="image/*" required id="id_images">
+                <p><label for="id_images">画像:</label>
+                <input type="file" name="images" multiple accept="image/*" id="id_images">
             </p>
             <p><input type="submit" class="send" name="sendchat" value="送信" onclick="multipleFunction()"> </p>            
         </form>

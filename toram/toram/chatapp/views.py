@@ -114,7 +114,6 @@ def chat(request, id):
     if request.method == 'POST':
         #チャットバリテーションと登録        
         if message!=None and "sendchat" in request.POST and message!="":
-            print('ok')
             result=Messages.objects.create(username=username, msg=message, room=room)
             for l in images:
                 imagesobject=PMaltipleImages.objects.create(image=l, message=result, room=room)
@@ -159,13 +158,16 @@ def inchat(request, id, messageid):
         username=User.objects.none()
     messageform = ChatForm(request.POST or None, request.FILES)
     message=request.POST.get('msg')
-    images=request.FILES.get('images')
-    messages = InMessages.objects.filter(room=primarymessage).order_by('-created_at') 
+    images=request.FILES.getlist('images')
+    messages = InMessages.objects.filter(pmsg=primarymessage).order_by('-created_at') 
    
     if request.method == 'POST':
-        if messageform.is_valid() and message!=None and "sendchat" in request.POST and message!="":
-            result=InMessages.objects.create(username=username, msg=message, room=primarymessage,images=images)
-            messages = InMessages.objects.filter(room=primarymessage).order_by('-created_at')
+        if message!=None and "sendchat" in request.POST and message!="":
+            result=InMessages.objects.create(username=username, msg=message, pmsg=primarymessage)
+            for l in images:
+                imagesobject=SMaltipleImages.objects.create(image=l, message=result)
+
+            messages = InMessages.objects.filter(pmsg=primarymessage).order_by('-created_at')
             messageform=ChatForm()
             return redirect('chatapp:in_chat_room',id,str(primarymessage.id),)
 
@@ -191,10 +193,13 @@ def inchat(request, id, messageid):
     return HttpResponse(template.render(context,request))
 
 def images(request,id):
-    mobj=Messages.objects.get(id=id)
-    print(mobj)
-    images=mobj.pmaltipleimages_set.all()
-    print(images)
+    if Messages.objects.filter(id=id).exists():
+        pmobj=Messages.objects.get(id=id)
+        images=pmobj.pmaltipleimages_set.all()
+    elif InMessages.objects.filter(id=id).exists():
+        smobj=InMessages.objects.get(id=id)
+        images=smobj.smaltipleimages_set.all()
+
     context={'images':images,}
     return render(request,"chatapp/images.html",context)
 

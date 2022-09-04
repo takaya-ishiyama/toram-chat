@@ -49,21 +49,21 @@ class PMaltipleImages(models.Model):
         )
     room = models.ForeignKey(
         Room,
-        related_name='room_pimage',
+        related_name='proom',
         on_delete=models.CASCADE
     )
+
 
 
 class InMessages(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     msg = models.TextField(null=True, blank=True)
-    room = models.ForeignKey(
+    pmsg = models.ForeignKey(
         Messages,
         related_name='in_mesages',
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=50)
-    images=models.ImageField(upload_to='media/', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg

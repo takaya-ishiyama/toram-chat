@@ -16,31 +16,42 @@
     {%endif%}
     
     <div class="primarymessage">
-        <p>{{primarymessage.msg}}</p>
-        {%if primarymessage.images%}
-            <p><img src="/media/{{primarymessage.images}}" width="150" height="150"></p>
-        {%endif%}
-        <p>{{primarymessage.username}}</p>
+        <div class="kakomi-maru4"><span class="title-maru4">{{primarymessage.username}}</span>
+            <p>{{primarymessage.msg}}</p>
+            {%if primarymessage.images%}
+                <p><img src="/media/{{primarymessage.images}}" width="150" height="150"></p>
+            {%endif%}
 
-        {%if user == room.master and displaysummary%}
-            <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="objectid" value={{primarymessage.id}}>
-                <input type="submit" name="psummary" value="まとめに登録">
-            </form>
-        {%endif%}
-
+            {%if user == room.master and displaysummary%}
+                <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="objectid" value={{primarymessage.id}}>
+                    <input type="submit" name="psummary" value="まとめに登録">
+                </form>
+            {%endif%}
+        </div>
     </div>
+
     <div>
         <ul class="select-chat-box">
             {%for message in msg%}
-                <div class="message">
-                    <p id='msg'>{{message.msg}}</p>
-                    <p id='username'>{{message.username}}</p>
-                    {%if message.images != ""%}
-                        <p id="image"><img src="/media/{{message.images}}" with="150" height="150"></p>
-                    {%endif%}
-                </div>
+            <div>
+                <ul class="select-chat-box">
+                    <div class="message">
+                        <div class="skakomi-maru4"><span class="stitle-maru4">{{message.username}}</span>
+                            <p id='msg'>{{message.msg}}</p>
+                            {%for img in message.smaltipleimages_set.all%}
+                                {% if forloop.counter <= 1 %}
+                                    <p id="image">
+                                        <a href="/chat/{{message.id}}/media/images" target="_blank"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                                        {{message.smaltipleimages_set.all.count}}枚の画像
+                                    </p>
+                            {%endif%}
+                        </div>
+                    </div>
+            {% endfor %}
+                </ul>
+            </div>
 
                 {%if user == room.master and displaysummary%}
                     <div class="summary">
@@ -63,7 +74,12 @@
     <div class="send-msg">
         <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{messageform.as_p}}
+            <p><label for="id_msg"></label>
+                <textarea name="msg" cols="40"  id="id_msg"></textarea>   
+            </p>            
+                <p><label for="id_images">画像:</label>
+                <input type="file" name="images" multiple accept="image/*" id="id_images">
+            </p>
             <p><input type="submit" class="send" name="sendchat" value="送信"> </p>            
         </form>
     </div>

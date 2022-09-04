@@ -1,2 +1,52 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
  
+#brand {
+    font-family: 'Noto Serif JP', sans-serif;
+}
+
+.kakomi-maru4 {
+    position: relative;
+    margin: 2em auto;
+    padding: 1.2em;
+    width: 90%;
+    border: 2px solid #ff9ece; /* 枠線の太さ・色 */
+    color: #555555; /* 文字色 */
+    background-color: #fff;
+    box-shadow: 2px 2px 1px #c7c7c7;/* 影の色 */
+    border-radius: 8px; /* 角の丸み */
+   }
+
+.title-maru4 {
+position: absolute;
+right: 20px; /*（left）に変更すると左 */
+top: -15px;
+padding: 0 .5em;
+font-weight: bold;
+font-size: 1.1em;
+color: #ff9ece; /* タイトル色 */
+background-color: #fff;
+}
+
+
+.skakomi-maru4 {
+    position: relative;
+    margin: 2em auto;
+    padding: 1.2em;
+    width: 90%;
+    border: 2px solid #00CCFF; /* 枠線の太さ・色 */
+    color: #555555; /* 文字色 */
+    background-color: #fff;
+    box-shadow: 2px 2px 1px #c7c7c7;/* 影の色 */
+    border-radius: 8px; /* 角の丸み */
+   }
+
+.stitle-maru4 {
+position: absolute;
+right: 20px; /*（left）に変更すると左 */
+top: -15px;
+padding: 0 .5em;
+font-weight: bold;
+font-size: 1.1em;
+color: #00CCFF; /* タイトル色 */
+background-color: #fff;
+}
