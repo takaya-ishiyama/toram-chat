@@ -26,14 +26,16 @@
 
         
             {%for result in results%}
-            <div>
+            <div class="kakomi">
+                <div class="center">
                 {%if result.image == ''%}
                 <p><a href="/chat/{{ result.id }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
                 {%else%}
                 <p><a href="/chat/{{ result.id }}"><img src="media/{{result.image}}"width="150" height="150" border="0" ></a></p>
                 {%endif%}
                 <p><a href="/chat/{{ result.id }}">{{result.name}}</a></p>
-            </div>     
+            </div>    
+        </div> 
             {%endfor%}        
             <br>
         
@@ -41,20 +43,22 @@
 
     <div class="new-room-list">
         <h2>新作ルーム</h2>
-        <ul class="select-room-box">
+        <div class="select-room-box">
             {%for lis in list%}
             {% if forloop.counter <= 6 %}
-            <div>
+            <div class="kakomi">
+                <div class="center">
                 {%if lis.image == ''%}
                 <p><a href="/chat/{{ lis.id }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
                 {%else%}
                 <p><a href="/chat/{{ lis.id }}"><img src="media/{{lis.image}}"width="150" height="150" border="0" ></a></p>
                 {%endif%}
                 <p><a href="/chat/{{ lis.id }}">{{lis.name}}</a></p>
-            </div>     
+            </div>    
+        </div> 
             {%endif%}   
             {%endfor%}
-        </ul>
+    </div>
     </div>
 
 </main>

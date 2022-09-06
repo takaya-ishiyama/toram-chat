@@ -1,8 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
-@media screen { #filename { display: none; } } 
+@media screen { #filename { display: none; } }
 
 #brand {
     font-family: 'Noto Serif JP', sans-serif;
+}
+
+.kakomi{
+    margin: 2em auto;
+    padding: 1em;
+    width: 90%;
+    border: 5px double #8491c3; /*太さ・線種・色*/
+    color: #333; /* 文字色 */
+    background-color: #fff; /* 背景色 */
+    border-radius: 1px; /*角の丸み*/
+   }
+
+div.center{
+    text-align: center;
 }
 
 .register{
@@ -11,7 +25,6 @@
 }
 
 .login{
-    margin-left: 235px;
     text-align: center;
 }
 
@@ -25,6 +38,7 @@ h1 {
   }
 
 h2 {
+    margin: 5px;
     position: relative;
     padding: 0.25em 0;
   }
@@ -36,19 +50,27 @@ h2:after {
     background: linear-gradient(to right, rgb(230, 90, 90), transparent);
   }
 
-div{
-    margin : 5px ;
-    padding : 5px ;
+.search-room{
+    margin-top: 30px;
+    margin-bottom: 10px;
+
 }
 div.chatroom{
     margin : 0px ;
     padding : 0px ;
 }
+div.content{
+    margin : 0px ;
+    padding : 0px ;
+
+}
 footer {
     position:fixed;
+    margin-left: -2px;
+    padding: 0;
     bottom: 0;
     width: 100%;
-    height: 170px;
+    height: 150px;
   }
 textarea{
     position: relative;
@@ -62,6 +84,10 @@ textarea{
 
 .button{
     text-align: right;
+    margin-top: 5px;
+    margin-right: 2px;
+    padding-top: 5px;
+
 }
 
 .right{
@@ -92,88 +118,6 @@ textarea{
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
-
-/* .arrow{
-    position: relative;
-    display: inline-block;
-    padding: 0 0 0 16px;
-    color: #000;
-    vertical-align: middle;
-    text-decoration: none;
-    font-size: 15px;
-}
-.arrow::before,
-.arrow::after{
-    position: absolute;
-    top: -20px;
-    bottom: 0;
-    left: -30px;
-    margin: auto;
-    content: "";
-    vertical-align: middle;
-}
-
-.down::before{
-    width: 40px;
-    height: 40px;
-    -webkit-border-radius: 25%;
-    border-radius: 25%;
-    background: #7a0;
-}
-
-.down::after{
-    left: -20px;
-    top: -4px;
-    box-sizing: border-box;
-    width: 10px;
-    height: 10px;
-    border: 10px solid transparent;
-    border-left: 10px solid #fff;
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
-
-.arrowup{
-    position: fixed;
-    bottom: 0;
-    display: inline-block;
-    padding: 0 0 0 16px;
-    color: #000;
-    vertical-align: middle;
-    text-decoration: none;
-    font-size: 15px;
-}
-.arrowup::before,
-.arrowup::after{
-    position: absolute;
-    top: -40px;
-    bottom: 0;
-    left: -35px;
-    margin: auto;
-    content: "";
-    vertical-align: middle;
-}
-
-.up::before{
-    width: 40px;
-    height: 40px;
-    -webkit-border-radius: 25%;
-    border-radius: 25%;
-    background: #7a0;
-}
-
-.up::after{
-    left: -25px;
-    top: -45px;
-    box-sizing: border-box;
-    width: 10px;
-    height: 10px;
-    border: 10px solid transparent;
-    border-left: 10px solid #fff;
-    -webkit-transform: rotate(270deg);
-    transform: rotate(270deg);
-} */
-
 
 .kakomi-maru4 {
     position: relative;
@@ -231,18 +175,18 @@ a.btn--orange {
     color: #fff;
     background-color: #eb6100;
   }
-  
+
   a.btn--orange:hover {
     color: #fff;
     background: #f56500;
   }
-  
+
   a.btn-c {
-    font-size: 2rem;
+    font-size: 18px;
     position: relative;
-    padding: 1rem 3rem 1.5rem 2rem;
+    padding: 1.5rem 2rem 2.5rem 1rem;
   }
-  
+
   a.btn-c i.fa {
     margin-right: 1rem;
   }
@@ -252,22 +196,66 @@ a.btn--orange {
   .displaytextarea {
     position: fixed;
     right: 0;
+    margin-right: 3px;
+    margin-top: -22px;
     display: block;
     width: 35px;
     height: 35px;
     background: #EFCECF;
     border: 1px solid #C79A9B;
-    margin-right: 15px;
 }
 
-   
-  /* チェックボックス（input 要素）は非表示にします */
-  #trigger {
-    display: none;
-  }
-   
-  /* footer ~ label .sample10 {
-    margin-top: 20px;
+nav{
+text-align: center;
+margin: 5px;
+padding-bottom: 10px;
+padding-top: 10px;
+}
 
-  } */
+nav ul{
+    display: table;
+    margin: 0 auto;
+    padding: 0 ;
+    width: 80%;
+    text-align: center;
+    }
+    nav li{
+    display: table-cell;
+    min-width: 50px;
+    }
+    nav a{
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #555;
+    padding-bottom: 5px;
+    }
+    nav li.current{
+    border-bottom: 3px solid #92D050;
+    }
+    nav li:hover{
+    color: #E7DA66;
+    border-bottom: 3px solid #0530dc;
+    }
 
+
+
+    .addmyroom {
+        border-radius: 3px;
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0 auto;
+        max-width: 220px;
+        padding: 10px 25px;
+        color: #FFF;
+        transition: 0.3s ease-in-out;
+        font-weight: 600;
+        background: rgb(149,202,252);
+        background: linear-gradient(270deg, rgba(149,202,252,1) 0%, rgba(107,182,255,1) 100%);
+    }
+    .addmyroom:hover {
+        background: rgb(117,188,255);
+        background: linear-gradient(270deg, rgba(117,188,255,1) 0%, rgba(62,159,252,1) 100%);
+    }

@@ -17,10 +17,14 @@
     <div class="primarymessage">
         <div class="kakomi-maru4"><span class="title-maru4">{{primarymessage.username}}</span>
             <p>{{primarymessage.msg}}</p>
-            {%if primarymessage.images%}
-                <p><img src="/media/{{primarymessage.images}}" width="150" height="150"></p>
-            {%endif%}
-
+            {%for img in primarymessage.pmaltipleimages_set.all%}
+            {% if forloop.counter <= 1 %}
+                <p id="image">
+                    <a href="/chat/{{primarymessage.id}}/media/images" target="_blank"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                    {{primarymessage.pmaltipleimages_set.all.count}}枚の画像
+                </p>
+                {%endif%}
+            {%endfor%}
             {%if user == room.master and displaysummary%}
                 <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST">
                     {% csrf_token %}

@@ -3,26 +3,37 @@
 {% block title %}chat room{% endblock %}
 {% block content %}
     <h1>{{room.name}}</h1>
-    <div>
-        <a href="/chat/{{ room.id }}">チャット</a>
-        <a href="/chat/{{room.id}}/2/summary">まとめ</a>
-        <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
-    </div>
+    <nav class="chatindex">
+        <ul>
+            <li class="chatindex">
+                <a href="/chat/{{ room.id }}">チャット</a>
+            </li>
+            <li class="chatindex">
+                <a href="/chat/{{room.id}}/2/summary" >まとめ</a>
+            </li>        
+            <li class="chatindex">
+                <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
+            </li>
+        </ul>
+    </nav>
     {%if user.is_authenticated%}
         <div class="follow">
+            <div class="center">
             <form action={% url 'chatapp:chat_room' room.id %} method="POST">
                 {% csrf_token %}
                 {%if follow%}
-                    <input type="submit" name="unfollow" value="マイルームから削除">
-                {%else%}
-                    <input type="submit" name="follow" value="マイルームに追加">
-                {%endif%}
-            </form>
-            {% if messages %}
+                    <input type="submit" class="addmyroom" name="unfollow" value="マイルームから削除">
+
+                    {%else%}
+                    <input type="submit" class="addmyroom" name="follow" value="マイルームに追加">
+                    {%endif%}
+                </form>
+                {% if messages %}
                 {% for message in messages %}
-                    <li>{{ message }}</li>
+                <p>{{ message }}</p>
                 {% endfor %}
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     {%endif%}
         

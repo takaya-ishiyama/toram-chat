@@ -4,10 +4,19 @@
 {% block content %}
 <h1>ルーム詳細</h1>
 <main>
-    <a href="/chat/{{ room.id }}">チャット</a>
-    <a href="/chat/{{room.id}}/2/summary">まとめ</a>
-    <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
-
+    <nav class="chatindex">
+        <ul>
+            <li class="chatindex">
+                <a href="/chat/{{ room.id }}">チャット</a>
+            </li>
+            <li class="chatindex">
+                <a href="/chat/{{room.id}}/2/summary" >まとめ</a>
+            </li>        
+            <li class="chatindex">
+                <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
+            </li>
+        </ul>
+    </nav>
     {%if all_user_display%}
     <div class="display">
         <p>部屋の名前：{{field.name}}</p>

@@ -127,17 +127,10 @@ def chat(request, id):
         elif "follow" in request.POST:
             follow_view(request,name=room.name)
         elif "unfollow" in request.POST:
-            unfollow_view(request,name=room.name)
-            
-    # if request.method=='GET':
-    #     if arrow==True:
-    #         arrow=False
-    #     else:
-    #         arrow=True
-
-        # elif "summary" in request.POST:
-        #     messageobject=Messages.objects.get(id=request.POST.get('objectid'))
-        #     register_summary(request, room, messageobject)
+            try:
+                unfollow_view(request,name=room.name)
+            except:
+                pass
 
     if request.user.is_authenticated:
         follow=FollowRoom.objects.filter(user=username,room=room).exists()
@@ -295,7 +288,6 @@ def unfollow_view(request, *args, **kwargs):
     except Room.DoesNotExist:
         messages.warning(request, '{}は存在しません'.format(kwargs['name']))
         return HttpResponseRedirect(reverse_lazy('chatapp:index'))
-
     return HttpResponseRedirect(reverse_lazy('chatapp:chat_room', kwargs={'id': room.id}))
 
 @require_POST

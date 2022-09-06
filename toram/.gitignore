@@ -8,3 +8,4 @@ docker-compose.dev.yml
 Dockerfile.dev
 default.dev.conf
 migrations
+db.sqlite3

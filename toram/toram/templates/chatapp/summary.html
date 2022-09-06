@@ -4,13 +4,20 @@
 {% block content %}
 <h1>まとめ</h1>
 <main>
-    <div class="room_functions">
-        <a href="/chat/{{ room.id }}">チャット</a>
-        <a href="/chat/{{room.id}}/2/summary">まとめ</a>
-        <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
-    </div>
-    <br>
-
+    <nav class="chatindex">
+        <ul>
+            <li class="chatindex">
+                <a href="/chat/{{ room.id }}">チャット</a>
+            </li>
+            <li class="chatindex">
+                <a href="/chat/{{room.id}}/2/summary" >まとめ</a>
+            </li>        
+            <li class="chatindex">
+                <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
+            </li>
+        </ul>
+    </nav>
+    
     <div class="summary">
         {%for lis in summary%}
         <div class="summary-message">
