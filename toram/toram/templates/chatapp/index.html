@@ -8,13 +8,12 @@
 
     <div class="create-room">
         {%if user.is_authenticated%}
-        <p><a href="{% url 'chatapp:newroom'%}">ルーム作成</a></p>
+        <a href="{% url 'chatapp:newroom'%}" class="btn btn--orange btn-c"><i class="fa far fa-envelope"></i>ルーム作成</a>
         {%else%}
         <p>ログインすると部屋が作成できます</p>
         {%endif%}
         <br>
     </div>
-
     <div class="search-room">
         <form action={% url 'chatapp:index'%} method="POST">
                 <div class="input-group">

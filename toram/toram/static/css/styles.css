@@ -1,8 +1,179 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
- 
+@media screen { #filename { display: none; } } 
+
 #brand {
     font-family: 'Noto Serif JP', sans-serif;
 }
+
+.register{
+    padding: 20px;
+    text-align: right;
+}
+
+.login{
+    margin-left: 235px;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: #010079;
+    text-shadow: 0 0 5px white;
+    padding: 0.3em 0.5em;
+    background: -webkit-repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+    background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+  }
+
+h2 {
+    position: relative;
+    padding: 0.25em 0;
+  }
+h2:after {
+    content: "";
+    display: block;
+    height: 4px;
+    background: -webkit-linear-gradient(to right, rgb(230, 90, 90), transparent);
+    background: linear-gradient(to right, rgb(230, 90, 90), transparent);
+  }
+
+div{
+    margin : 5px ;
+    padding : 5px ;
+}
+div.chatroom{
+    margin : 0px ;
+    padding : 0px ;
+}
+footer {
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    height: 170px;
+  }
+textarea{
+    position: relative;
+    top: 15px;
+    width: 98%;
+    height: 90px;
+}
+.textarea{
+    text-align: center;
+}
+
+.button{
+    text-align: right;
+}
+
+.right{
+    text-align: right;
+}
+
+.create-room{
+    text-align: center;
+}
+
+.select-chat-box{
+    padding-bottom: 120px;/*←footerの高さ*/
+    box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
+}
+
+.alertlogin{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #00CCFF;
+}
+
+.chatdisplay{
+    border: 0px;
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/* .arrow{
+    position: relative;
+    display: inline-block;
+    padding: 0 0 0 16px;
+    color: #000;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 15px;
+}
+.arrow::before,
+.arrow::after{
+    position: absolute;
+    top: -20px;
+    bottom: 0;
+    left: -30px;
+    margin: auto;
+    content: "";
+    vertical-align: middle;
+}
+
+.down::before{
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 25%;
+    border-radius: 25%;
+    background: #7a0;
+}
+
+.down::after{
+    left: -20px;
+    top: -4px;
+    box-sizing: border-box;
+    width: 10px;
+    height: 10px;
+    border: 10px solid transparent;
+    border-left: 10px solid #fff;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.arrowup{
+    position: fixed;
+    bottom: 0;
+    display: inline-block;
+    padding: 0 0 0 16px;
+    color: #000;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 15px;
+}
+.arrowup::before,
+.arrowup::after{
+    position: absolute;
+    top: -40px;
+    bottom: 0;
+    left: -35px;
+    margin: auto;
+    content: "";
+    vertical-align: middle;
+}
+
+.up::before{
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 25%;
+    border-radius: 25%;
+    background: #7a0;
+}
+
+.up::after{
+    left: -25px;
+    top: -45px;
+    box-sizing: border-box;
+    width: 10px;
+    height: 10px;
+    border: 10px solid transparent;
+    border-left: 10px solid #fff;
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
+} */
+
 
 .kakomi-maru4 {
     position: relative;
@@ -15,6 +186,8 @@
     box-shadow: 2px 2px 1px #c7c7c7;/* 影の色 */
     border-radius: 8px; /* 角の丸み */
    }
+
+
 
 .title-maru4 {
 position: absolute;
@@ -50,3 +223,51 @@ font-size: 1.1em;
 color: #00CCFF; /* タイトル色 */
 background-color: #fff;
 }
+
+
+a.btn--orange {
+    width: 60%;
+    height: 80px;
+    color: #fff;
+    background-color: #eb6100;
+  }
+  
+  a.btn--orange:hover {
+    color: #fff;
+    background: #f56500;
+  }
+  
+  a.btn-c {
+    font-size: 2rem;
+    position: relative;
+    padding: 1rem 3rem 1.5rem 2rem;
+  }
+  
+  a.btn-c i.fa {
+    margin-right: 1rem;
+  }
+
+
+
+  .displaytextarea {
+    position: fixed;
+    right: 0;
+    display: block;
+    width: 35px;
+    height: 35px;
+    background: #EFCECF;
+    border: 1px solid #C79A9B;
+    margin-right: 15px;
+}
+
+   
+  /* チェックボックス（input 要素）は非表示にします */
+  #trigger {
+    display: none;
+  }
+   
+  /* footer ~ label .sample10 {
+    margin-top: 20px;
+
+  } */
+

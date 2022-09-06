@@ -2,18 +2,28 @@
 
 {% block content %}
 
-<h2>ログイン</h2>
+<h1>ログイン</h1>
 <form method="POST">{% csrf_token %}
     {% if form.errors %}
-        <p>ユーザー名またはパスワードが間違っています。もう一度入力してください。</p>
+    <p>ユーザー名またはパスワードが間違っています。もう一度入力してください。</p>
     {% endif %}
-    <label>ユーザー名</label>
-    <input name="username">
-    <br>
-    <label>パスワード</label>
-    <input type="password" name="password">
-    <br>
+    <div style="text-align: center" > 
+    <div style="margin-right:30px">
+        <label>ユーザー名</label>
+        <input name="username">
+        <br>
+    </div>
+
+    <div style="margin-right:30px">
+        <label>パスワード</label>
+        <input type="password" name="password" >
+        <br>
+    </div>
+    
+    <div class="login">
     <input type="submit" value="ログイン">
+</div>
+</div>
 </form>
 
 {% endblock %}

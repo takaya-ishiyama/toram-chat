@@ -97,6 +97,7 @@ def setting(request):
 
 # チャットview
 def chat(request, id):
+    arrow=False
     room_name=Room.objects.get(id=id)
     if request.user.is_authenticated:
         username=User.objects.get(username=request.user.username)
@@ -127,6 +128,12 @@ def chat(request, id):
             follow_view(request,name=room.name)
         elif "unfollow" in request.POST:
             unfollow_view(request,name=room.name)
+            
+    # if request.method=='GET':
+    #     if arrow==True:
+    #         arrow=False
+    #     else:
+    #         arrow=True
 
         # elif "summary" in request.POST:
         #     messageobject=Messages.objects.get(id=request.POST.get('objectid'))
@@ -141,6 +148,7 @@ def chat(request, id):
         'room': room,
         'messageform':messageform,
         'follow': follow,
+        'arrow':arrow,
     }
     return render(request,template,context)
 
@@ -180,7 +188,6 @@ def inchat(request, id, messageid):
             register_summary(request, room, messageobject)
 
         elif "add-summary" in request.POST:
-            print('okay')
             displaysummary=True
 
     context = {

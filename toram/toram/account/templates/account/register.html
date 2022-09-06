@@ -3,26 +3,39 @@
 {% block title %}my_chat_room{% endblock %}
 {% block content %}
 <main>
-<h2>ユーザー登録</h2>
+<h1>ユーザー登録</h1>
+<div>
 <form method="POST" action="{% url 'account:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    <label>ユーザー名</label>
-    {{ form.username }}
-    {{ form.username.errors }}
-    <br>
-    <label>アイコン画像</label>
-    {{ form.icon }}
-    {{ form.icon.errors }}
-    <br>
-    <label>パスワード</label>
-    {{ form.password1 }}
-    {{ form.password1.errors }}
-    <br>
-    <label>パスワード(確認)</label>
-    {{ form.password2 }}
-    {{ form.password2.errors }}
-    <br>
-    <input type="submit" value="登録する">
+    <div>
+        <label>ユーザー名</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+        <br>
+    </div>
+    <div>
+        <label>アイコン</label>
+        {{ form.icon }}
+        {{ form.icon.errors }}
+        <br>
+    </div>
+    <div>
+        <label>パスワード</label>
+        {{ form.password1 }}
+        {{ form.password1.errors }}
+        <br>
+    </div>
+    <div>
+        <label>パスワード(確認)</label>
+        {{ form.password2 }}
+        {{ form.password2.errors }}
+        <br>
+
+    </div>
+    <div class="register">
+        <input type="submit" value="登録する">
+    </div>
 </form>
+</div>
 </main>
 {% endblock %}

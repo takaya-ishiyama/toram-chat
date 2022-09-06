@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %}in chat{% endblock %}
 {% block content %}
-<h1></h1>
 <p><a href="/chat/{{ room.id }}">もどる</a></p>
 <br>
 <main>
@@ -35,9 +34,7 @@
     <div>
         <ul class="select-chat-box">
             {%for message in msg%}
-            <div>
-                <ul class="select-chat-box">
-                    <div class="message">
+                    <div class="chatroom">
                         <div class="skakomi-maru4"><span class="stitle-maru4">{{message.username}}</span>
                             <p id='msg'>{{message.msg}}</p>
                             {%for img in message.smaltipleimages_set.all%}
@@ -48,9 +45,7 @@
                                     </p>
                             {%endif%}
                         </div>
-                    </div>
             {% endfor %}
-                </ul>
             </div>
 
                 {%if user == room.master and displaysummary%}
@@ -68,27 +63,75 @@
     </div>
         
 
+    {% comment %} <footer id="footer">    
+        {% if request.user.is_authenticated %}
+        <p class="displaytextarea" onclick="move()"></p>
+                <div class="send-msg">
+                    <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <p><label for="id_msg"></label>
+                            <textarea name="msg" cols="40"  id="id_msg"></textarea>   
+                        </p>   
+                        <div class="button">
+                            <span class="btn btn-success" id="image-input">           
+                                <label for="id_images">画像</label>
+                                <input type="file" name="images" multiple accept="image/*" id="id_images" style="display:none">
+                            </span>
+                            <button type="submit" class="btn btn-primary" style="text-align: right" id="send" name="sendchat" value="送信" onclick="multipleFunction()">送信</button>    
 
+                        </div>
+            </form>
+            {%else%}
+                <p>ログイン後すると発言できます</p>
+            {% endif %}
+            </div>
+        </div>
+    </footer> {% endcomment %}
 
-    {% if request.user.is_authenticated %}
-    <div class="send-msg">
-        <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <p><label for="id_msg"></label>
-                <textarea name="msg" cols="40"  id="id_msg"></textarea>   
-            </p>            
-                <p><label for="id_images">画像:</label>
-                <input type="file" name="images" multiple accept="image/*" id="id_images">
-            </p>
-            <p><input type="submit" class="send" name="sendchat" value="送信"> </p>            
-        </form>
-    </div>
-    {%else%}
-        <p>ログイン後すると発言できます</p>
-    {% endif %}
-
+    <footer id="footer">
+        {% if request.user.is_authenticated %}
+        <p class="displaytextarea" onclick="move()"></p>
+                <div class="send-msg">
+                    <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="textarea"><label for="id_msg"></label>
+                            <textarea name="msg"   id="id_msg"></textarea>   
+                        </div> 
+                        <div class="button">
+                            <span class="btn btn-success" id="image-input">           
+                                <label for="id_images">画像</label>
+                                <input type="file" name="images" multiple accept="image/*" id="id_images" style="display:none">
+                            </span>
+                            <button type="submit" class="btn btn-primary" style="text-align: right" id="send" name="sendchat" value="送信" onclick="multipleFunction()">送信</button>     
+                        </div>
+            </form>
+            {%else%}
+            <div class="alertlogin">
+                <p class="logindiscription">ログイン後すると発言できます</p>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+    </footer>
         
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
 
+    <script>
+        footer=document.getElementById("footer")
+        i=0
+        function move(){
+            if (i==0){
+                footer.style.bottom="-135px";
+                i=1;
+            }else{
+                footer.style.bottom="";
+                i=0
+            }
+
+        }
+    </script>
 </main>
 
 {% endblock %}
