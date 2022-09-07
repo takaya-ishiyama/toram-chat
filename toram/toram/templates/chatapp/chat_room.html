@@ -67,14 +67,16 @@
                         {%for img in message.pmaltipleimages_set.all%}
                             {% if forloop.counter <= 1 %}
                                 <p id="image">
-                                    <a href="/chat/{{message.id}}/media/images" target="_blank"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                                    <a href="/chat/{{message.id}}/media/images" target="_blank"><img src="/media/{{img.image}}" class="imagefield"></a>
                                     {{message.pmaltipleimages_set.all.count}}枚の画像
                                 </p>
                             {%endif%}
                         {%endfor%}
-                        <a href="/chat/{{room.id}}/{{message.id}}">
-                            <p>{{message.in_mesages.all.count}}個の返信</p>
-                        </a>
+                        <div class="rep">
+                            <a href="/chat/{{room.id}}/{{message.id}}">
+                                <p>{{message.in_mesages.all.count}}個の返信</p>
+                            </a>
+                        </div>
                 </div>
                 </div>
             {% endfor %}
@@ -85,7 +87,8 @@
  
     {% if request.user.is_authenticated %}
     <footer id="footer">
-        <p class="displaytextarea" onclick="move()"></p>
+        <i class="bi bi-caret-down-square-fill" id="downicon" onclick="move()" style="display:block;"></i>
+        <i class="bi bi-caret-up-square-fill" id="upicon" onclick="move()" style="display:none;"></i>
                 <div class="send-msg">
                     <form action={% url 'chatapp:chat_room' room.id %} method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -115,15 +118,22 @@
 
     <script>
         const footer=document.getElementById("footer");
+        const downicon=document.getElementById("downicon");
+        const upicon=document.getElementById("upicon");
+
         var i=0;
         let id;
         
         function move(){
             if (i==0){
-                footer.style.bottom="-135px";
+                downicon.style.display ="none";
+                upicon.style.display ="block";
+                footer.style.animation="down 0.8s forwards";
                 i=1;
             }else{
-                footer.style.bottom="";
+                footer.style.animation="up 0.8s forwards";
+                downicon.style.display="block";
+                upicon.style.display="none";
                 i=0
             }
 
