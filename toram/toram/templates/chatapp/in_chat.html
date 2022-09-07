@@ -85,30 +85,6 @@
     </div>
         
 
-    {% comment %} <footer id="footer">    
-        {% if request.user.is_authenticated %}
-        <p class="displaytextarea" onclick="move()"></p>
-                <div class="send-msg">
-                    <form action={% url 'chatapp:in_chat_room' primarymessage.room.id primarymessage.id %} method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <p><label for="id_msg"></label>
-                            <textarea name="msg" cols="40"  id="id_msg"></textarea>   
-                        </p>   
-                        <div class="button">
-                            <span class="btn btn-success" id="image-input">           
-                                <label for="id_images">画像</label>
-                                <input type="file" name="images" multiple accept="image/*" id="id_images" style="display:none">
-                            </span>
-                            <button type="submit" class="btn btn-primary" style="text-align: right" id="send" name="sendchat" value="送信" onclick="multipleFunction()">送信</button>    
-
-                        </div>
-            </form>
-            {%else%}
-                <p>ログイン後すると発言できます</p>
-            {% endif %}
-            </div>
-        </div>
-    </footer> {% endcomment %}
 
     {% if request.user.is_authenticated %}
     <footer id="footer">
