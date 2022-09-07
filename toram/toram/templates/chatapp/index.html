@@ -14,6 +14,13 @@
         {%endif%}
         <br>
     </div>
+
+    <h2>ルーム検索</h2>
+    <div class="room-search-detail">
+        <p>
+            ルーム名、ルーム詳細より検索します
+        </p>
+    </div>
     <div class="search-room">
         <form action={% url 'chatapp:index'%} method="POST">
                 <div class="input-group">
@@ -22,8 +29,6 @@
                     <button type="submit" class="btn btn-primary" name="search">検索</button>
                 </div>
             </form> 
-            
-
         
             {%for result in results%}
             <div class="kakomi">
@@ -40,6 +45,40 @@
             <br>
         
     </div>
+
+    <h2>チャット検索</h2>
+    <div class="chat-search-detail">
+        <p>
+            キーワードからチャットを検索します
+        </p>
+    </div>
+    <div class="search-room">
+        <form action={% url 'chatapp:index'%} method="POST">
+                <div class="input-group">
+                    {% csrf_token %}
+                    <input class="form-control form-control-lg" name="search_word" placeholder="ワード検索">
+                    <button type="submit" class="btn btn-primary" name="search_word_button">検索</button>
+                </div>
+            </form> 
+        
+            {%for p in pchat%}
+            <div class="kakomi">
+                <div class="search-primarymsg">
+                <p>{{p.msg}}</p>
+                <p><a href="/chat/{{ p.room.id }}/{{p.id}}">このチャットへ移動</a>
+            </div>    
+        </div> 
+            {%endfor%}
+            {%for s in schat%}
+            <div class="kakomi">
+                <div class="search-secondarymsg">
+                <p>{{s.msg}}</p>
+                <p><a href="/chat/{{ s.pmsg.room.id }}/{{s.pmsg.id}}">このチャットへ移動</a>
+            </div>    
+        </div> 
+            {%endfor%}          
+            <br>
+
 
     <div class="new-room-list">
         <h2>新作ルーム</h2>

@@ -51,7 +51,7 @@ h1 {
 h2 {
     margin: 5px;
     position: relative;
-    padding: 0.25em 0;
+    padding: 1.5em 0;
   }
 h2:after {
     content: "";

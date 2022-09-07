@@ -16,26 +16,51 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_POST
 from django.db.models import Q
+from itertools import chain
 
 
 # Create your views here.
 
 def index(request):
     results=Room.objects.none()
+    wresults=[]
+    pchat=Messages.objects.none()
+    schat=InMessages.objects.none()
     text=""
-    if "search" in request.POST:
-        query=request.POST.get('search-room')
-        query=query.split()
-        for word in query:
-            results = results.union(Room.objects.filter(Q(name__icontains=word)|Q(detail__icontains=word)).all())        
-        if results.exists()==False:
-            text="見つかりません"
-        else:
-            pass
+    ctext=""
+    if request.method=='POST':
+        if "search" in request.POST:
+            print('bad')
+            query=request.POST.get('search-room')
+            query=query.split()
+            for word in query:
+                results = results.union(Room.objects.filter(Q(name__icontains=word)|Q(detail__icontains=word)).all())        
+            if results.exists()==False:
+                text="見つかりません"
+            else:
+                pass
+
+
+        elif "search_word_button" in request.POST:
+            query=request.POST.get('search_word')
+            query=query.split()
+            for word in query:
+                pchat = pchat.union(Messages.objects.filter(Q(msg__icontains=word)).all())   
+                schat = schat.union(InMessages.objects.filter(Q(msg__icontains=word)).all())
+            if pchat.exists()==False and schat.exists==False:
+                ctext="見つかりません"
+            else:
+                pass
+
+    
     context = {
     'list':Room.objects.all().order_by('-created_at') ,
     'results':results,
-    'text':text
+    'text':text,
+    'ctext':ctext,
+    'pchat':pchat,
+    'schat':schat,
+
     }
     return render(request, '../templates/chatapp/index.html',context)
 
