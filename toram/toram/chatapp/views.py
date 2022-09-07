@@ -131,6 +131,9 @@ def chat(request, id):
                 unfollow_view(request,name=room.name)
             except:
                 pass
+        elif "msg_del" in request.POST:
+            delmsg=Messages.objects.filter(id=request.POST.get('hidden_msg_del'))
+            delmsg.delete()
 
     if request.user.is_authenticated:
         follow=FollowRoom.objects.filter(user=username,room=room).exists()
@@ -182,6 +185,11 @@ def inchat(request, id, messageid):
 
         elif "add-summary" in request.POST:
             displaysummary=True
+
+        elif "smsg_del" in request.POST:
+            delmsg=InMessages.objects.filter(id=request.POST.get('hidden_msg_del'))
+            delmsg.delete()
+
 
     context = {
         'room':room,
@@ -297,7 +305,7 @@ def deleteroom(request, *args, **kwargs):
 
 def summary(request,id):
     room=Room.objects.get(id=id)
-    summary=Summary.objects.filter(room=room)
+    summary=Summary.objects.filter(room=room).order_by('-created_at')
     template = loader.get_template('chatapp/summary.html')
     if request.POST:
         if "summarydelete" in request.POST:

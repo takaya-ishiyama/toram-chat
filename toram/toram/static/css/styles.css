@@ -5,6 +5,10 @@
     font-family: 'Noto Serif JP', sans-serif;
 }
 
+.right{
+    text-align: right;
+}
+
 .kakomi{
     margin: 2em auto;
     padding: 1em;
@@ -95,6 +99,7 @@ textarea{
 }
 
 .create-room{
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -104,9 +109,12 @@ textarea{
 }
 
 .alertlogin{
-    position: absolute;
+    position:fixed;
+    margin-left: -2px;
+    padding: 0;
     bottom: 0;
     width: 100%;
+    height: 40px;
     text-align: center;
     background-color: #00CCFF;
 }
@@ -117,6 +125,10 @@ textarea{
     height: 40px;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+}
+
+.msg{
+    padding-top: 1rem;
 }
 
 .kakomi-maru4 {
@@ -259,3 +271,88 @@ nav ul{
         background: rgb(117,188,255);
         background: linear-gradient(270deg, rgba(117,188,255,1) 0%, rgba(62,159,252,1) 100%);
     }
+
+    .three-dot-leader {
+        cursor: pointer;
+        border: none;
+        background: none;
+        display: block;
+        position:absolute;
+        right: -10px;
+        top: -5px;
+        /* ボタン要素のサイズ */
+        width: 25px;
+        height: 25px;
+      }
+
+      .three-dot-leader .dot,
+      .three-dot-leader .dot::before,
+      .three-dot-leader .dot::after {
+        display: block;
+        position: absolute;
+        border-radius: 50%;
+        /* ドット1つのサイズ */
+        width: 4px;
+        height: 4px;
+        /* ドットの色 */
+        background-color: #333;
+      }
+
+      .three-dot-leader .dot {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
+
+      .three-dot-leader .dot::before, .three-dot-leader .dot::after {
+        content: '';
+      }
+
+      .three-dot-leader .dot::before {
+        /* 上側ドットの位置 */
+        top: -6px;
+      }
+
+      .three-dot-leader .dot::after {
+        /* 下側ドットの位置 */
+        top: 6px;
+      }
+
+.msg_menu{
+    position: absolute;
+    right: 15px;
+}
+
+.msg_menu_body{
+    position: absolute;
+    right: 6px;
+    top: -3px;
+    border:  solid #aaa;
+    width: 80px;
+    height: 70px;
+    padding: 0;
+    background-color: white;
+}
+
+.msg_menu_list{
+    list-style: none;
+    padding-left: 0;
+    position: absolute;
+    top: 20px;
+    left: 15px;
+}
+
+
+button.msg_menu_item-link{
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #0033cc;
+}
+button.msg_menu_item-link:hover{
+  text-decoration: underline;
+  color: #002080;
+}

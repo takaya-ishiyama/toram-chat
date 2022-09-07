@@ -22,12 +22,9 @@
         {%for lis in summary%}
         <div class="summary-message">
             {%if lis.primarymessage%}
-                <p>{{lis.primarymessage.msg}}</p>
-                {%if lis.primarymessage.images%}
-                    <p><img src="/media/{{lis.primarymessage.images}}" width="150" height="150"></p>
-                {%endif%}
-                <p>{{lis.primarymessage.username}}</p>
+            <div class="kakomi-maru4"><span class="title-maru4">{{lis.primarymessage.username}}</span>
 
+                {%if user == room.master%}
                 <form action={% url 'chatapp:summary' room.id%} method="POST">
                     {% csrf_token %}
                     <div class="clean-summary">
@@ -35,14 +32,31 @@
                         <button class="send" type="submit" name="summarydelete" onclick='return confirm("本当に削除しますか？");'>まとめから削除</button>
                     </div>
                 </form>
+                <br>
+                {%endif%}
+
+                <p>{{lis.primarymessage.msg}}</p>
+                {%for img in lis.primarymessage.pmaltipleimages_set.all%}
+                    {% if forloop.counter <= 1 %}
+                        <p id="image">
+                            <a href="/chat/{{lis.primarymessage.id}}/media/images" target="_blank"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                            {{lis.primarymessage.pmaltipleimages_set.all.count}}枚の画像
+                        </p>
+                    {%endif%}
+                {%endfor%}
+
+                <a href="/chat/{{lis.primarymessage.room.id}}/{{lis.primarymessage.id}}">
+                    <p>チャットの詳細</p>
+                </a>
+
+
+            </div>
+        </div>
 
             {%elif lis.secondarymessage%}
-                <p>{{lis.secondarymessage.msg}}</p>
-                {%if lis.secondarymessage.images%}
-                    <p><img src="/media/{{lis.secondarymessage.images}}" width="150" height="150"></p>
-                {%endif%}
-                <p>{{lis.secondarymessage.username}}</p>
-                
+            <div class="skakomi-maru4"><span class="stitle-maru4">{{lis.secondarymessage.username}}</span>
+
+                {%if user == room.master%}
                 <form action={% url 'chatapp:summary' room.id%} method="POST">
                     {% csrf_token %}
                     <div class="clean-summary">
@@ -50,14 +64,30 @@
                         <button class="send" type="submit" name="summarydelete" onclick='return confirm("本当に削除しますか？");'>まとめから削除</button>
                     </div>
                 </form>
-            {%endif%}
+                <br>
+                {%endif%}
 
+                <p>{{lis.secondarymessage.msg}}</p>
+
+                {%for img in lis.secondarymessage.smaltipleimages_set.all%}
+                    {% if forloop.counter <= 1 %}
+                        <p id="image">
+                            <a href="/chat/{{lis.secondarymessage.id}}/media/images" target="_blank"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                            {{lis.secondarymessage.smaltipleimages_set.all.count}}枚の画像
+                        </p>
+                    {%endif%}
+                {%endfor%}
+
+                <a href="/chat/{{lis.secondarymessage.pmsg.room.id}}/{{lis.secondarymessage.pmsg.id}}">
+                    <p>チャットの詳細</p>
+                </a>
+                
+
+            {%endif%}
             </div>
-            <br>
         {%endfor%}
     </div>
 
     
 </main>
-</div>
 {% endblock %}
