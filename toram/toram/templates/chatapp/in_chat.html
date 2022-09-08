@@ -76,7 +76,7 @@
 
                     <div class="chatroom">
                         <div class="msg">
-                            <p id='msg'>{{message.msg}}</p>
+                            <p id='msg'>{{message.msg | linebreaksbr}}</p>
                         </div>
                             {%for img in message.smaltipleimages_set.all%}
                                 {% if forloop.counter <= 1 %}

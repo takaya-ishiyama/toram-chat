@@ -78,7 +78,7 @@
                         {%endif%}
 
                         <div class="msg">
-                            <p id='msg'>{{message.msg}}</p>
+                            <p id='msg'>{{message.msg | linebreaksbr}}</p>
                         </div>
                         {%for img in message.pmaltipleimages_set.all%}
                             {% if forloop.counter <= 1 %}
