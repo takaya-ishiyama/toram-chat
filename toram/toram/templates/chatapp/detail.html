@@ -27,7 +27,7 @@
         <p>画像：<img src="/media/{{field.image}}" with="150" height="150"></p>
         {%endif%}
         <p>ルームマスター：{{field.master}}</p>
-        <p>詳細：{{field.detail}}</p>
+        <p>詳細：{{field.detail | linebreaksbr }}</p>
     </div>
     {%endif%}
     {%if judge%}

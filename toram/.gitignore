@@ -8,3 +8,4 @@ docker-compose.dev.yml
 migrations
 db.sqlite3
 media/media/*
+説明

@@ -4,7 +4,7 @@
 {% block content %}
 <main>
 <h1>ユーザー登録</h1>
-<div>
+<div class="createuser">
 <form method="POST" action="{% url 'account:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
     <div>
