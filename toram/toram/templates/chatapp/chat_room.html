@@ -59,8 +59,8 @@
             {%endif%}
             
                 <div class="chatroom">
-                    <div class="kakomi-maru4"><span class="title-maru4">{{message.username}}</span>
-                        {%if user.username == message.username%}
+                    <div class="kakomi-maru4"><span class="title-maru4">{{message.username.username}}</span>
+                        {%if user == message.username%}
                         <div class="msg_menu">
                         <button class="three-dot-leader" id="three-dot-leader-{{message.id}}" value="{{message.id}}" type="button" onclick="menu_button(this)">
                             <span class="dot"></span>
@@ -89,8 +89,8 @@
                             {%endif%}
                         {%endfor%}
                         <div class="rep">
-                            <a href="/chat/{{room.id}}/{{message.id}}">
-                                <p>{{message.in_mesages.all.count}}個の返信</p>
+                            <a href="/chat/{{room.id}}/{{message.id}}" class="rep">
+                                <p class="rep-count">{{message.in_mesages.all.count}}個の返信</p>
                             </a>
                         </div>
                 </div>

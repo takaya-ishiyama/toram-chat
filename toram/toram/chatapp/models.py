@@ -35,7 +35,13 @@ class Messages(models.Model):
         related_name='room_mesages',
         on_delete=models.CASCADE
     )
-    username = models.CharField(max_length=50)
+    # username = models.CharField(max_length=50)
+    username=models.ForeignKey(
+        User,
+        related_name='pmsg_user',
+        on_delete=models.CASCADE,
+
+    )
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg
@@ -63,7 +69,13 @@ class InMessages(models.Model):
         related_name='in_mesages',
         on_delete=models.CASCADE
     )
-    username = models.CharField(max_length=50)
+    # username = models.CharField(max_length=50)
+    username=models.ForeignKey(
+        User,
+        related_name='smsg_user',
+        on_delete=models.CASCADE,
+
+    )
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.msg

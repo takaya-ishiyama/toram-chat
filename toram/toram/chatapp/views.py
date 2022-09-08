@@ -125,7 +125,7 @@ def chat(request, id):
     arrow=False
     room_name=Room.objects.get(id=id)
     if request.user.is_authenticated:
-        username=User.objects.get(username=request.user.username)
+        username=User.objects.get(username=request.user)
     else:
         username=User.objects.none()
     messageform = ChatForm(request.POST or None)
@@ -182,7 +182,7 @@ def inchat(request, id, messageid):
     already="登録済み"
     template = loader.get_template('chatapp/in_chat.html')
     if request.user.is_authenticated:
-        username=User.objects.get(username=request.user.username)
+        username=User.objects.get(username=request.user)
     else:
         username=User.objects.none()
     messageform = ChatForm(request.POST or None, request.FILES)
