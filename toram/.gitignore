@@ -5,8 +5,6 @@ memo
 bg-masthead.jpg
 docker-compose.dev.yml
 *migrations/
-Dockerfile.dev
-default.dev.conf
 migrations
 db.sqlite3
 media/media/*

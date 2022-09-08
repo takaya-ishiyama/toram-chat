@@ -15,7 +15,7 @@
     {%endif%}
     
     <div class="primarymessage">
-        <div class="kakomi-maru4"><span class="title-maru4">{{primarymessage.username}}</span>
+        <div class="kakomi-maru4"><span class="title-maru4">{{primarymessage.username.username}}</span>
             <p>{{primarymessage.msg}}</p>
             {%for img in primarymessage.pmaltipleimages_set.all%}
             {% if forloop.counter <= 1 %}
@@ -55,9 +55,9 @@
 
 
 
-            <div class="skakomi-maru4"><span class="stitle-maru4">{{message.username}}</span>
+            <div class="skakomi-maru4"><span class="stitle-maru4">{{message.username.username}}</span>
 
-                {%if user.username == message.username%}
+                {%if user. == message.username%}
                 <div class="msg_menu">
                 <button class="three-dot-leader" id="three-dot-leader-{{message.id}}" value="{{message.id}}" type="button" onclick="menu_button(this)">
                     <span class="dot"></span>

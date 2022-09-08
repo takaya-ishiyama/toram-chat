@@ -4,16 +4,18 @@
 {% block content %}
 <h1>設定</h1>
 <main>
-
     {%if judgeprofileedit%}
+    <div class="profile_body profile-change">
     {%if username_already_exists != None%}
-        {{username_already_exists}}
+    {{username_already_exists}}
     {%endif%}
-    <a href={% url 'chatapp:setting'%}>戻る</a>
+    <div class="back">
+    <a href={% url 'chatapp:setting'%} >戻る</a>
+    </div>
     <form action={% url 'chatapp:setting'%} method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <p>
-        <label for="id_username">Username:</label>
+        <label for="id_username">ユーザー名:</label>
         <input type="text" name="username" maxlength="30" value={{user.username}}>
         </p>  
         <p>
@@ -34,12 +36,12 @@
         </div>
     </form>
     <br> 
-
+</div>
     {%else%}
-    <div>
         <div class="profile">
             {%if user.is_authenticated%}
             <h2>ユーザー情報表示</h2>
+            <div class="profile_body">
             <p>ユーザー名：{{user.username}}</p>
             {% if user.icon %}
                 <img src="/media/{{user.icon}}" width="150" height="150" border="">
@@ -48,7 +50,6 @@
             {% endif %}
             <br>
             {%endif%}
-        </div>
         
         <div>
             {%if user.is_authenticated%}
@@ -56,14 +57,16 @@
                 {% csrf_token %}
                 <p><input type="submit" class="send" name="profileedit" value="プロフィールを編集"></p>    
             </fomr>
+        </div>
             {%endif%}
         </div>
     </div>
     {%endif%}
 
     <h2>問い合わせフォーム</h2>
-    <p><a href="#">toram.chat@gmail.com</a></p>
-    <p><a href="https://twitter.com/ToramChat">Twitter</a></p>
+    <div class="contact">
+        <p><a href="#">toram.chat@gmail.com</a></p>
+        <p><a href="https://twitter.com/ToramChat">Twitter</a></p>
+    </div>
 </main>
-</div>
 {% endblock %}
