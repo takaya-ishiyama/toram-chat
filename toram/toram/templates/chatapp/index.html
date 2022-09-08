@@ -72,7 +72,7 @@
                 {%for img in p.pmaltipleimages_set.all%}
                 {% if forloop.counter <= 1 %}
                     <p id="image">
-                        <a href="/chat/{{ p.room.id }}/{{p.id}}" target="_blank"><img src="/media/{{img.image}}" class="imagefield"></a>
+                        <a href="/chat/{{ p.room.id }}/{{p.id}}"><img src="/media/{{img.image}}" class="imagefield"></a>
                         {{p.pmaltipleimages_set.all.count}}枚の画像
                     </p>
                 {%endif%}
@@ -90,7 +90,7 @@
                 {%for img in s.smaltipleimages_set.all%}
                 {% if forloop.counter <= 1 %}
                     <p id="image">
-                        <a href="/chat/{{ s.pmsg.room.id }}/{{s.pmsg.id}}" target="_blank"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                        <a href="/chat/{{ s.pmsg.room.id }}/{{s.pmsg.id}}"><img src="/media/{{img.image}}" with="150" height="150"></a>
                         {{s.smaltipleimages_set.all.count}}枚の画像
                     </p>
             {%endif%}
