@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}chat_room_detail{% endblock %}
+{% block title %}chat room detail{% endblock %}
 {% block content %}
 <h1>ルーム詳細</h1>
 <main>
@@ -17,6 +17,7 @@
             </li>
         </ul>
     </nav>
+    <div class="room_detail">
     {%if all_user_display%}
     <div class="display">
         <p>部屋の名前：{{field.name}}</p>
@@ -70,6 +71,7 @@
             </div>
         </form>
     {%endif%}
+    </div>
 </main>
 </div>
 {% endblock %}
