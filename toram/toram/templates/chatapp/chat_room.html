@@ -42,6 +42,21 @@
     <div>
         <div class="select-chat-box">
             {%for message in msg%}
+
+            {%if forloop.counter|divisibleby:"5" %}
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1259593776810741"
+            crossorigin="anonymous"></script>
+       <!-- スクエアAd -->
+       <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-1259593776810741"
+            data-ad-slot="8393744468"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+       <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+       </script>
+            {%endif%}
             
                 <div class="chatroom">
                     <div class="kakomi-maru4"><span class="title-maru4">{{message.username}}</span>
@@ -81,21 +96,6 @@
                 </div>
                 </div>
 
-
-            {%if forloop.counter|divisibleby:"5" %}
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1259593776810741"
-            crossorigin="anonymous"></script>
-       <!-- スクエアAd -->
-       <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-1259593776810741"
-            data-ad-slot="8393744468"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-       <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-       </script>
-            {%endif%}
 
             {% endfor %}
 
