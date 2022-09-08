@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}chat room{% endblock %}
+{% block content %}
+    <h1>{{room.name}}</h1>
+    <nav class="chatindex">
+        <ul>
+            <li class="chatindex">
+                <a href="/chat/{{ room.id }}">チャット</a>
+            </li>
+            <li class="chatindex">
+                <a href="/chat/{{room.id}}/2/summary" >まとめ</a>
+            </li>        
+            <li class="chatindex">
+                <a href="/chat/{{room.id}}/3/detail">ルーム情報</a>
+            </li>
+        </ul>
+    </nav>
+    {%if user.is_authenticated%}
+        <div class="follow">
+            <div class="center">
+            <form action={% url 'chatapp:chat_room' room.id %} method="POST">
+                {% csrf_token %}
+                {%if follow%}
+                    <input type="submit" class="addmyroom" name="unfollow" value="マイルームから削除">
+
+                    {%else%}
+                    <input type="submit" class="addmyroom" name="follow" value="マイルームに追加">
+                    {%endif%}
+                </form>
+                {% if messages %}
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    {%endif%}
+
+        
+<main>
+    <div>
+        <div class="select-chat-box">
+            {%for message in msg%}
+
+            {%if forloop.counter|divisibleby:"5" %}
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1259593776810741"
+            crossorigin="anonymous"></script>
+       <!-- スクエアAd -->
+       <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-1259593776810741"
+            data-ad-slot="8393744468"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+       <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+       </script>
+            {%endif%}
+            
+                <div class="chatroom">
+                    <div class="kakomi-maru4"><span class="title-maru4">{{message.username}}</span>
+                        {%if user.username == message.username%}
+                        <div class="msg_menu">
+                        <button class="three-dot-leader" id="three-dot-leader-{{message.id}}" value="{{message.id}}" type="button" onclick="menu_button(this)">
+                            <span class="dot"></span>
+                        </button> 
+                        <div class="msg_menu_body" id="{{message.id}}" style="display:none;">
+                            <ul class="msg_menu_list">
+                              <form action="#" method="POST">
+                                {% csrf_token %}
+                                <li class="msg_menu_item"><button type="submit" class="msg_menu_item-link" name="msg_del" onclick='return confirm("本当に削除しますか？");'>削除</button></li>
+                                <input type="hidden" name="hidden_msg_del" value="{{message.id}}">
+                              </form>
+                            </ul>
+                          </div>
+                        </div>
+                        {%endif%}
+
+                        <div class="msg">
+                            <p id='msg'>{{message.msg}}</p>
+                        </div>
+                        {%for img in message.pmaltipleimages_set.all%}
+                            {% if forloop.counter <= 1 %}
+                                <p id="image">
+                                    <a href="/chat/{{message.id}}/media/images" target="_blank"><img src="/media/{{img.image}}" class="imagefield"></a>
+                                    {{message.pmaltipleimages_set.all.count}}枚の画像
+                                </p>
+                            {%endif%}
+                        {%endfor%}
+                        <div class="rep">
+                            <a href="/chat/{{room.id}}/{{message.id}}">
+                                <p>{{message.in_mesages.all.count}}個の返信</p>
+                            </a>
+                        </div>
+                </div>
+                </div>
+
+
+            {% endfor %}
+
+            </div>
+    </div>
+    
+ 
+    {% if request.user.is_authenticated %}
+    <footer id="footer">
+        <i class="bi bi-caret-down-square-fill" id="downicon" onclick="move()" style="display:block;"></i>
+        <i class="bi bi-caret-up-square-fill" id="upicon" onclick="move()" style="display:none;"></i>
+                <div class="send-msg">
+                    <form action={% url 'chatapp:chat_room' room.id %} method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="textarea"><label for="id_msg"></label>
+                            <textarea name="msg"   id="id_msg"></textarea>   
+                        </div> 
+                        <div class="button">
+                            <span class="btn btn-success" id="image-input">           
+                                <label for="id_images">画像</label>
+                                <input type="file" name="images" multiple accept="image/*" id="id_images" style="display:none">
+                            </span>
+                            <button type="submit" class="btn btn-primary" style="text-align: right" id="send" name="sendchat" value="送信" onclick="multipleFunction()">送信</button>     
+                        </div>
+            </form>
+        </div>
+    </footer>
+    {%else%}
+    <div class="alertlogin">
+        <p class="logindiscription">ログイン後すると発言できます</p>
+    </div>
+    {% endif %}
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
+
+    <script>
+        const footer=document.getElementById("footer");
+        const downicon=document.getElementById("downicon");
+        const upicon=document.getElementById("upicon");
+
+        var i=0;
+        let id;
+        
+        function move(){
+            if (i==0){
+                downicon.style.display ="none";
+                upicon.style.display ="block";
+                footer.style.animation="down 0.8s forwards";
+                i=1;
+            }else{
+                footer.style.animation="up 0.8s forwards";
+                downicon.style.display="block";
+                upicon.style.display="none";
+                i=0
+            }
+
+        }
+
+        function menu_button(own){
+            var three_dot_leader_id =own.id
+            id = document.getElementById(three_dot_leader_id).value;
+            display_msg_menu(id);
+        }
+
+        function display_msg_menu(id){
+            const msg_menu = document.getElementById(id);
+
+            if(msg_menu.style.display=="block"){
+                // noneで非表示
+                msg_menu.style.display ="none";
+            }else{
+                // blockで表示
+                msg_menu.style.display ="block";
+            }
+        } 
+
+
+
+    </script>
+
+</main>
+{% endblock %}

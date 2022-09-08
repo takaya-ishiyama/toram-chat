@@ -1,0 +1,405 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
+@media screen { #filename { display: none; } }
+
+#brand {
+    font-family: 'Noto Serif JP', sans-serif;
+}
+
+textarea {
+    border-color: #675f71;
+    border-radius: 0.3rem;
+    background: darken(#f9f9f9, 10%);
+    color: darken(#f9f9f9, 50%);
+    }
+
+.right{
+    text-align: right;
+}
+
+.kakomi{
+    margin: 2em auto;
+    padding: 1em;
+    width: 90%;
+    border: 5px double #8491c3; /*太さ・線種・色*/
+    color: #333; /* 文字色 */
+    background-color: #fff; /* 背景色 */
+    border-radius: 1px; /*角の丸み*/
+   }
+
+div.center{
+    text-align: center;
+}
+
+.register{
+    padding: 20px;
+    text-align: right;
+}
+
+.login{
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: #010079;
+    text-shadow: 0 0 5px white;
+    padding: 0.3em 0.5em;
+    background: -webkit-repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+    background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+  }
+
+h2 {
+    margin: 5px;
+    position: relative;
+    padding: 1.5em 0;
+  }
+h2:after {
+    content: "";
+    display: block;
+    height: 4px;
+    background: -webkit-linear-gradient(to right, rgb(230, 90, 90), transparent);
+    background: linear-gradient(to right, rgb(230, 90, 90), transparent);
+  }
+
+.search-room{
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+}
+div.chatroom{
+    margin : 0px ;
+    padding : 0px ;
+}
+div.content{
+    margin : 0px ;
+    padding : 0px ;
+
+}
+footer {
+    position:fixed;
+    margin-left: -2px;
+    padding: 0;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+  }
+
+@keyframes down {
+    0% {
+    transform: translateY(0px);
+    }
+  
+    100% {
+    transform: translateY(135px);
+    }
+  }
+
+  @keyframes up {
+    0% {
+    transform: translateY(135px);
+    }
+  
+    100% {
+    transform: translateY(0px);
+    }
+  }
+
+  /* @keyframes downspin{
+    0%{ transform:rotate(0);}
+    100%{ transform:rotate(180deg); }
+  }
+  
+  @keyframes upspin{
+    0%{ transform:rotate(180deg);}
+    100%{ transform:rotate(360deg); }
+  } */
+
+textarea{
+    position: relative;
+    top: 15px;
+    width: 98%;
+    height: 90px;
+}
+.textarea{
+    text-align: center;
+}
+
+.button{
+    text-align: right;
+    margin-top: 5px;
+    margin-right: 2px;
+    padding-top: 5px;
+
+}
+
+.right{
+    text-align: right;
+}
+
+.create-room{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.select-chat-box{
+    padding-bottom: 120px;/*←footerの高さ*/
+    box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
+}
+
+.alertlogin{
+    position:fixed;
+    margin-left: -2px;
+    padding: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    background-color: #00CCFF;
+}
+
+.chatdisplay{
+    border: 0px;
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.msg{
+    padding-top: 1rem;
+}
+
+.kakomi-maru4 {
+    position: relative;
+    margin: 2em auto;
+    padding: 1.2em;
+    width: 90%;
+    border: 2px solid #ff9ece; /* 枠線の太さ・色 */
+    color: #555555; /* 文字色 */
+    background-color: #fff;
+    box-shadow: 2px 2px 1px #c7c7c7;/* 影の色 */
+    border-radius: 8px; /* 角の丸み */
+   }
+
+
+
+.title-maru4 {
+position: absolute;
+right: 20px; /*（left）に変更すると左 */
+top: -15px;
+padding: 0 .5em;
+font-weight: bold;
+font-size: 1.1em;
+color: #ff9ece; /* タイトル色 */
+background-color: #fff;
+}
+
+
+.skakomi-maru4 {
+    position: relative;
+    margin: 2em auto;
+    padding: 1.2em;
+    width: 90%;
+    border: 2px solid #00CCFF; /* 枠線の太さ・色 */
+    color: #555555; /* 文字色 */
+    background-color: #fff;
+    box-shadow: 2px 2px 1px #c7c7c7;/* 影の色 */
+    border-radius: 8px; /* 角の丸み */
+   }
+
+.stitle-maru4 {
+position: absolute;
+right: 20px; /*（left）に変更すると左 */
+top: -15px;
+padding: 0 .5em;
+font-weight: bold;
+font-size: 1.1em;
+color: #00CCFF; /* タイトル色 */
+background-color: #fff;
+}
+
+
+a.btn--orange {
+    width: 60%;
+    height: 80px;
+    color: #fff;
+    background-color: #eb6100;
+  }
+
+  a.btn--orange:hover {
+    color: #fff;
+    background: #f56500;
+  }
+
+  a.btn-c {
+    font-size: 18px;
+    position: relative;
+    padding: 1.5rem 2rem 2.5rem 1rem;
+  }
+
+  a.btn-c i.fa {
+    margin-right: 1rem;
+  }
+
+
+
+  .bi {
+    position: fixed;
+    right: 2px;
+    margin-right: 3px;
+    margin-top: -36px;
+    display: block;
+    font-size: 40px;
+    background-color: white;
+}
+
+
+
+nav{
+text-align: center;
+margin: 5px;
+padding-bottom: 10px;
+padding-top: 10px;
+}
+
+nav ul{
+    display: table;
+    margin: 0 auto;
+    padding: 0 ;
+    width: 80%;
+    text-align: center;
+    }
+    nav li{
+    display: table-cell;
+    min-width: 50px;
+    }
+    nav a{
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #555;
+    padding-bottom: 5px;
+    }
+    nav li.current{
+    border-bottom: 3px solid #92D050;
+    }
+    nav li:hover{
+    color: #E7DA66;
+    border-bottom: 3px solid #0530dc;
+    }
+
+img.imagefield{
+    max-width: 200px;
+    max-height: 150px;
+}
+
+div.rep{
+    text-align: center;
+    padding-top: 20px;
+    font-size: 15px;
+}
+
+    .addmyroom {
+        border-radius: 3px;
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0 auto;
+        max-width: 220px;
+        padding: 10px 25px;
+        color: #FFF;
+        transition: 0.3s ease-in-out;
+        font-weight: 600;
+        background: rgb(149,202,252);
+        background: linear-gradient(270deg, rgba(149,202,252,1) 0%, rgba(107,182,255,1) 100%);
+    }
+    .addmyroom:hover {
+        background: rgb(117,188,255);
+        background: linear-gradient(270deg, rgba(117,188,255,1) 0%, rgba(62,159,252,1) 100%);
+    }
+
+    .three-dot-leader {
+        cursor: pointer;
+        border: none;
+        background: none;
+        display: block;
+        position:absolute;
+        right: -10px;
+        top: -5px;
+        /* ボタン要素のサイズ */
+        width: 25px;
+        height: 25px;
+      }
+
+      .three-dot-leader .dot,
+      .three-dot-leader .dot::before,
+      .three-dot-leader .dot::after {
+        display: block;
+        position: absolute;
+        border-radius: 50%;
+        /* ドット1つのサイズ */
+        width: 4px;
+        height: 4px;
+        /* ドットの色 */
+        background-color: #333;
+      }
+
+      .three-dot-leader .dot {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
+
+      .three-dot-leader .dot::before, .three-dot-leader .dot::after {
+        content: '';
+      }
+
+      .three-dot-leader .dot::before {
+        /* 上側ドットの位置 */
+        top: -6px;
+      }
+
+      .three-dot-leader .dot::after {
+        /* 下側ドットの位置 */
+        top: 6px;
+      }
+
+.msg_menu{
+    position: absolute;
+    right: 15px;
+}
+
+.msg_menu_body{
+    position: absolute;
+    right: 10px;
+    top: -3px;
+    border:  solid #aaa;
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    background-color: white;
+}
+
+.msg_menu_list{
+    list-style: none;
+    padding-left: 0;
+    position: absolute;
+    top: 35px;
+    left: 28px;
+}
+
+
+button.msg_menu_item-link{
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #0033cc;
+}
+button.msg_menu_item-link:hover{
+  text-decoration: underline;
+  color: #002080;
+}

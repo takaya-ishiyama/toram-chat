@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}setting{% endblock %}
+{% block content %}
+<h1>設定</h1>
+<main>
+
+    {%if judgeprofileedit%}
+    {%if username_already_exists != None%}
+        {{username_already_exists}}
+    {%endif%}
+    <a href={% url 'chatapp:setting'%}>戻る</a>
+    <form action={% url 'chatapp:setting'%} method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+        <label for="id_username">Username:</label>
+        <input type="text" name="username" maxlength="30" value={{user.username}}>
+        </p>  
+        <p>
+            <label for="id_icon">プロフィール画像:</label>
+            <input type="file" name="icon" accept="image/*" id="id_icon">            
+        </p>
+        <p><input type="submit" class="send" name="changeprofile" value="送信"> </p>    
+      </form>
+    <br>
+
+    <br>
+    <form action={% url 'chatapp:setting'%} method="POST">
+        {% csrf_token %}
+        <div class="userdelete">
+            <button class="send" type="submit" name="userdelete" onclick='return confirm("本当に削除しますか？");'>
+            アカウントを削除
+            </button>
+        </div>
+    </form>
+    <br> 
+
+    {%else%}
+    <div>
+        <div class="profile">
+            {%if user.is_authenticated%}
+            <h2>ユーザー情報表示</h2>
+            <p>ユーザー名：{{user.username}}</p>
+            {% if user.icon %}
+                <img src="/media/{{user.icon}}" width="150" height="150" border="">
+            {% else %}
+                <img src="static/img/no_image.png" width="150" height="150" border="">
+            {% endif %}
+            <br>
+            {%endif%}
+        </div>
+        
+        <div>
+            {%if user.is_authenticated%}
+            <form action={% url 'chatapp:setting'%} method="POST">
+                {% csrf_token %}
+                <p><input type="submit" class="send" name="profileedit" value="プロフィールを編集"></p>    
+            </fomr>
+            {%endif%}
+        </div>
+    </div>
+    {%endif%}
+
+    <h2>問い合わせフォーム</h2>
+    <p><a href="#">toram.chat@gmail.com</a></p>
+    <p><a href="https://twitter.com/ToramChat">Twitter</a></p>
+</main>
+</div>
+{% endblock %}

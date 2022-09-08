@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>ログイン</h1>
+<form method="POST">{% csrf_token %}
+    {% if form.errors %}
+    <p>ユーザー名またはパスワードが間違っています。もう一度入力してください。</p>
+    {% endif %}
+    <div class="login"> 
+    <div style="margin-top:10px">
+        <label>ユーザー名</label>
+        <input name="username">
+        <br>
+    </div>
+
+    <div>
+        <label>パスワード</label>
+        <input type="password" name="password" >
+        <br>
+    </div>
+
+    <div style="margin-top:20px">
+    <input type="submit" value="ログイン">
+</div>
+</div>
+</form>
+
+{% endblock %}

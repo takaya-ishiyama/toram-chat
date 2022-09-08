@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}create room{% endblock %}
+{% block content %}
+<h1>ルーム作成</h1>
+<main>
+    <div class="create-room-box">
+        <form action={% url 'chatapp:newroom'%} method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}  
+            <input type="submit" class="send" name="button" value="作成"> 
+        </form>
+    </div>
+    <p>{{text}}</p>
+</main>
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% comment %} <div class="container"> {% endcomment %}
+<h1>HOME</h1>
+<main>
+
+    <div class="create-room">
+        {%if user.is_authenticated%}
+        <a href="{% url 'chatapp:newroom'%}" class="btn btn--orange btn-c"><i class="fa far fa-envelope"></i>ルーム作成</a>
+        {%else%}
+        <p>ログインすると部屋が作成できます</p>
+        {%endif%}
+        <br>
+    </div>
+
+    <h2>ルーム検索</h2>
+    <div class="room-search-detail">
+        <p>
+            ルーム名、ルーム詳細より検索します
+        </p>
+    </div>
+    <div class="search-room">
+        <form action={% url 'chatapp:index'%} method="POST">
+                <div class="input-group">
+                    {% csrf_token %}
+                    <input class="form-control form-control-lg" name="search-room" placeholder="ルーム検索">
+                    <button type="submit" class="btn btn-primary" name="search">検索</button>
+                </div>
+            </form> 
+        
+            {%for result in results%}
+            <div class="kakomi">
+                <div class="center">
+                {%if result.image == ''%}
+                <p><a href="/chat/{{ result.id }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
+                {%else%}
+                <p><a href="/chat/{{ result.id }}"><img src="media/{{result.image}}"width="150" height="150" border="0" ></a></p>
+                {%endif%}
+                <p><a href="/chat/{{ result.id }}">{{result.name}}</a></p>
+            </div>    
+        </div> 
+            {%endfor%}        
+            <br>
+
+
+        
+    </div>
+
+    <h2>チャット検索</h2>
+    <div class="chat-search-detail">
+        <p>
+            キーワードからチャットを検索します
+        </p>
+    </div>
+    <div class="search-room">
+        <form action={% url 'chatapp:index'%} method="POST">
+                <div class="input-group">
+                    {% csrf_token %}
+                    <input class="form-control form-control-lg" name="search_word" placeholder="ワード検索">
+                    <button type="submit" class="btn btn-primary" name="search_word_button">検索</button>
+                </div>
+            </form> 
+            
+        
+            {%for p in pchat%}
+            <div class="kakomi">
+                <div class="search-primarymsg">
+                <p>{{p.msg}}</p>
+
+                {%for img in p.pmaltipleimages_set.all%}
+                {% if forloop.counter <= 1 %}
+                    <p id="image">
+                        <a href="/chat/{{ p.room.id }}/{{p.id}}"><img src="/media/{{img.image}}" class="imagefield"></a>
+                        {{p.pmaltipleimages_set.all.count}}枚の画像
+                    </p>
+                {%endif%}
+            {%endfor%}
+
+                <p><a href="/chat/{{ p.room.id }}/{{p.id}}">このチャットへ移動</a>
+            </div>    
+        </div> 
+            {%endfor%}
+            {%for s in schat%}
+            <div class="kakomi">
+                <div class="search-secondarymsg">
+                <p>{{s.msg}}</p>
+                
+                {%for img in s.smaltipleimages_set.all%}
+                {% if forloop.counter <= 1 %}
+                    <p id="image">
+                        <a href="/chat/{{ s.pmsg.room.id }}/{{s.pmsg.id}}"><img src="/media/{{img.image}}" with="150" height="150"></a>
+                        {{s.smaltipleimages_set.all.count}}枚の画像
+                    </p>
+            {%endif%}
+            {% endfor %}
+
+                <p><a href="/chat/{{ s.pmsg.room.id }}/{{s.pmsg.id}}">このチャットへ移動</a>
+            </div>    
+        </div> 
+            {%endfor%}          
+            <br>
+
+
+    <div class="new-room-list">
+        <h2>新作ルーム</h2>
+        <div class="select-room-box">
+            {%for lis in list%}
+            {% if forloop.counter <= 6 %}
+            <div class="kakomi">
+                <div class="center">
+                {%if lis.image == ''%}
+                <p><a href="/chat/{{ lis.id }}"><img src="static/img/no_image.png"width="150" height="150" border=""></a></p>
+                {%else%}
+                <p><a href="/chat/{{ lis.id }}"><img src="media/{{lis.image}}"width="150" height="150" border="0" ></a></p>
+                {%endif%}
+                <p><a href="/chat/{{ lis.id }}">{{lis.name}}</a></p>
+            </div>    
+        </div> 
+            {%endif%}   
+            {%endfor%}
+    </div>
+    </div>
+
+</main>
+</div>
+{% endblock %}
+
+
