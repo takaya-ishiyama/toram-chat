@@ -131,7 +131,4 @@ class Summary(models.Model):
     def __str__(self):
         return "{}".format(self.room.name)
 
-def images_directory_path(instance, filename):
-    return 'media/{0}/{1}'.format(instance.id, filename)
-
 
