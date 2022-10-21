@@ -128,7 +128,7 @@ DEBUG = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-ALLOWED_HOSTS = ['127.0.0.1','153.121.57.137','localhost','toram-chat.com']
+ALLOWED_HOSTS = ['127.0.0.1','153.121.57.137','localhost','portfolio-chat.com']
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "static/")
 # ]
